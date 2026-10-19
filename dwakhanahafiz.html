@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akhtar Inqalabi Dawakhana - Pure Herbal Unani</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Noto+Naskh+Arabic:wght@600;700;800&family=Noto+Nastaliq+Urdu:wght@600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+*{font-family:'Poppins',sans-serif;box-sizing:border-box}
+html,body{overflow-x:hidden; max-width:100vw;}
+body{font-size:16px;background:#fdf6e3;margin:0;text-align:center;font-weight:700}
+.urdu{font-family:'Noto Naskh Arabic',serif;direction:rtl;line-height:1.9;font-weight:800;font-size:21px;text-align:center}
+.urdu-head{font-family:'Noto Nastaliq Urdu',serif;direction:rtl;line-height:2.4;font-weight:800;padding-top:14px;overflow:visible;text-align:center}
+.card{border:3px solid #f3e8d0;transition:.3s;background:#fff;width:100%;text-align:center}
+.card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(93,47,15,.20);border-color:#C8A951}
+.nav-link{font-weight:900;white-space:nowrap;padding:10px 14px;display:inline-block;text-align:center;letter-spacing:0.3px;text-transform:uppercase; font-size:14px;}
+.active{color:#5D2F0F!important;border-bottom:4px solid #C8A951}
+.detail-btn{border:3px solid #5D2F0F;color:#5D2F0F;font-weight:900;background:#fff}
+.order-btn{background:#5D2F0F;color:#fff;font-weight:900}
+.admin-grid{grid-template-columns:360px 1fr;gap:32px;align-items:stretch}
+.admin-side-left{display:flex;flex-direction:column;height:100%}
+.admin-side-right{display:flex;flex-direction:column;height:100%}
+@media(max-width:1024px){.admin-grid{grid-template-columns:1fr;align-items:start}.admin-side-left,.admin-side-right{height:auto}}
+p,span,li,button,input,textarea{font-weight:800}
+h1,h2,h3,h4{font-weight:900}
+@media(max-width:640px){#sInput{width:68px!important}}
+.search-icon{font-size:20px;font-weight:900;line-height:1}
+@media(min-width:1024px){.search-icon{font-size:22px}}
+/* COMPUTER SCREEN FIT FIX */
+.nav-top-row{max-width:100vw; overflow:hidden;}
+header nav{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none;}
+header nav::-webkit-scrollbar{display:none;}
+#app{max-width:100vw; overflow-x:hidden;}
+img{max-width:100%;}
+@media(min-width:1280px){
+  .nav-link{padding:10px 16px; font-size:15px;}
+  .nav-top-row{padding-left:20px!important; padding-right:20px!important;}
+}
+</style>
+</head>
+<body>
+<header class="sticky top-0 z-50 bg-white border-b-[3px] border-[#f3e8d0] shadow-md w-full">
+<div class="nav-top-row w-full mx-auto px-2 sm:px-4 md:px-6 lg:px-6 h-[70px] sm:h-[84px] lg:h-[90px] flex justify-between items-center gap-2">
+<div class="flex gap-2 lg:gap-3 items-center cursor-pointer shrink-0 justify-start" onclick="router('home')">
+<img src="https://i.postimg.cc/k4gTf7qd/akhtar-inqalabi-dawakhana-removebg-preview.png" class="bg-white rounded-full border-[3px] lg:border-[4px] border-[#C8A951] shadow-xl p-1 h-[48px] w-[48px] sm:h-[60px] sm:w-[60px] lg:h-[72px] lg:w-[72px] object-contain shrink-0">
+<div class="flex flex-col items-start justify-center text-left leading-none gap-[2px] lg:gap-[4px] shrink-0">
+<h1 class="font-black text-[13px] sm:text-[16px] lg:text-[22px] text-[#3d1f0a] leading-none tracking-tight">Akhtar Inqalabi</h1>
+<p class="text-[8px] sm:text-[10px] lg:text-[11px] font-black tracking-[3px] text-[#8a6d3b] leading-none m-0">DAWAKHANA</p>
+</div>
+</div>
+<nav class="hidden lg:flex gap-1 items-center justify-center mx-auto flex-1">
+<button data-nav="home" class="nav-link active nav-btn" onclick="router('home')">Home</button>
+<button data-nav="medicines" class="nav-link nav-btn" onclick="router('medicines')">Medicines</button>
+<button data-nav="murabba" class="nav-link nav-btn" onclick="router('murabba')">Murabba Jaat</button>
+<button data-nav="arqiyat" class="nav-link nav-btn" onclick="router('arqiyat')">Arqiyat</button>
+<button data-nav="hakeem" class="nav-link nav-btn" onclick="router('hakeem')">Hakeem Info</button>
+<button data-nav="about" class="nav-link nav-btn" onclick="router('about')">About</button>
+</nav>
+<div class="flex gap-1.5 sm:gap-2 lg:gap-2 items-center shrink-0 justify-end">
+<div class="relative">
+<input id="sInput" oninput="doSearch(this.value)" placeholder="Search..." class="h-9 sm:h-10 lg:h-[42px] w-[60px] sm:w-[140px] lg:w-[180px] xl:w-[220px] pl-8 sm:pl-10 pr-2 rounded-full border-[2px] border-[#f3e8d0] bg-[#fdf6e3] text-[11px] sm:text-[12px] lg:text-[13px] font-black text-center focus:border-[#C8A951] focus:outline-none">
+<span class="search-icon absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 text-[14px]">🔍</span>
+<div id="sDrop" class="hidden absolute top-12 right-0 w-[90vw] sm:w-[320px] lg:w-[380px] max-w-[380px] bg-white border-2 border-[#f3e8d0] shadow-2xl rounded-2xl max-h-[400px] overflow-y-auto z-50 text-left"></div>
+</div>
+<button onclick="router('profile')" class="hidden md:block h-9 lg:h-[40px] px-3 lg:px-4 border-[2px] border-[#5D2F0F] rounded-full text-[11px] lg:text-[12px] font-black text-[#5D2F0F]">Profile</button>
+<button onclick="router('admin')" class="h-9 lg:h-[40px] px-3 lg:px-5 bg-[#5D2F0F] text-white rounded-full text-[11px] lg:text-[13px] font-black shadow-lg shrink-0">Admin</button>
+<button class="lg:hidden h-9 w-9 bg-[#fdf6e3] border-[2px] border-[#f3e8d0] rounded-full font-black text-[14px] flex items-center justify-center shrink-0" onclick="document.getElementById('mMenu').classList.toggle('hidden')">☰</button>
+</div>
+</div>
+<div id="mMenu" class="hidden lg:hidden bg-white border-t-[3px] border-[#f3e8d0] w-full text-center shadow-xl absolute left-0 top-full">
+<div class="px-3 sm:px-4 py-3 sm:py-4 space-y-1.5 sm:space-y-2 max-h-[80vh] overflow-y-auto">
+<button onclick="router('home')" class="w-full text-center py-3 sm:py-3.5 px-4 font-black rounded-xl hover:bg-[#fdf6e3] bg-[#fdf6e3] border-2 border-[#f3e8d0] text-[14px] sm:text-[15px]">🏠 Home</button>
+<button onclick="router('medicines')" class="w-full text-center py-3 sm:py-3.5 px-4 font-black rounded-xl hover:bg-[#fdf6e3] border-2 border-[#f3e8d0] text-[14px] sm:text-[15px]">💊 Medicines</button>
+<button onclick="router('murabba')" class="w-full text-center py-3 sm:py-3.5 px-4 font-black rounded-xl hover:bg-[#fdf6e3] border-2 border-[#f3e8d0] text-[14px] sm:text-[15px]">🍯 Murabba Jaat</button>
+<button onclick="router('arqiyat')" class="w-full text-center py-3 sm:py-3.5 px-4 font-black rounded-xl hover:bg-[#fdf6e3] border-2 border-[#f3e8d0] text-[14px] sm:text-[15px]">🧴 Arqiyat</button>
+<button onclick="router('hakeem')" class="w-full text-center py-3 sm:py-3.5 px-4 font-black rounded-xl hover:bg-[#fdf6e3] border-2 border-[#f3e8d0] text-[14px] sm:text-[15px]">👨‍⚕️ Hakeem Info</button>
+<button onclick="router('about')" class="w-full text-center py-3 sm:py-3.5 px-4 font-black rounded-xl hover:bg-[#fdf6e3] border-2 border-[#f3e8d0] text-[14px] sm:text-[15px]">📖 About</button>
+<div class="h-[1px] bg-[#f3e8d0] my-2"></div>
+<button onclick="router('profile')" class="w-full text-center py-3 sm:py-3.5 px-4 font-black rounded-xl bg-white border-[3px] border-[#5D2F0F] text-[#5D2F0F] text-[14px] sm:text-[15px]">👤 Profile</button>
+<button onclick="router('admin')" class="w-full text-center py-3 sm:py-3.5 px-4 font-black rounded-xl bg-[#5D2F0F] text-white text-[14px] sm:text-[15px]">🔐 Admin Panel</button>
+</div>
+</div>
+</header>
+<main id="app" class="w-full min-h-[70vh] px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 flex justify-center"></main>
+<footer class="mt-10 bg-[#3d1f0a] text-[#f5e6c8] w-full">
+<div class="w-full max-w-[1600px] mx-auto px-4 py-5 flex flex-col items-center justify-center text-center gap-2">
+<div class="flex gap-2.5 items-center justify-center mx-auto">
+<img src="https://i.postimg.cc/k4gTf7qd/akhtar-inqalabi-dawakhana-removebg-preview.png" class="h-10 w-10 lg:h-12 lg:w-12 bg-white rounded-full border-2 border-[#C8A951] p-0.5 object-contain">
+<div class="text-center leading-none"><p class="font-black text-white text-[14px] leading-none">Akhtar Inqalabi Dawakhana</p><p class="text-[10px] opacity-70 font-black leading-none mt-1">Pure herbal • Traditional Hikmat</p></div>
+</div>
+<p class="text-[11px] font-black opacity-80 text-center mx-auto">© 2026 Akhtar Inqalabi Dawakhana — All Rights Reserved</p>
+</div>
+</footer>
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#3d1f0a] text-white px-7 py-3 rounded-full text-[14px] font-black hidden z-[100] shadow-xl text-center"></div>
+<script>
+const PRODUCTS=[
+{id:'med1',category:'medicines',name:'Majoon Falasfa',price:1450,rating:4.8,image:'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400',benefits:'اعصابی کمزوری، جسمانی تھکاوٹ، دماغی کمزوری اور قوت مدافعت کی بہتری کے لیے مفید۔ قوت باہ میں معاون۔',method:'روزانہ صبح شام ایک چائے کا چمچ نیم گرم دودھ کے ساتھ۔ معالج کے مشورہ سے استعمال کریں۔',warnings:'ذیابیطس، بلڈ پریشر کے مریض معالج سے مشورہ کریں۔ بچوں کی پہنچ سے دور رکھیں۔',desc:'روایتی یونانی نسخہ سے تیار'},
+{id:'med2',category:'medicines',name:'Habbe Muqawwi Meda',price:850,rating:4.6,image:'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400',benefits:'معدہ کی کمزوری، بدہضمی، گیس، کھٹی ڈکاریں اور بھوک کی کمی کے لیے مفید۔',method:'ایک گولی صبح شام کھانے کے بعد پانی سے۔',warnings:'حاملہ خواتین اور بچے معالج سے مشورہ کریں۔',desc:'معدہ کی اصلاح'},
+{id:'med3',category:'medicines',name:'Sharbat Faulad',price:650,rating:4.7,image:'https://images.unsplash.com/photo-1550572017-edd951b8633d?w=400',benefits:'خون کی کمی، کمزوری، چکر آنا اور تھکاوٹ میں معاون۔',method:'20 ملی لیٹر دن میں دو بار پانی میں ملا کر۔',warnings:'آئرن کی زیادتی والے افراد احتیاط کریں۔',desc:'خون کی کمی'},
+{id:'mur1',category:'murabba',name:'Murabba Amla',price:750,rating:4.9,image:'https://images.unsplash.com/photo-1615485925600-97237c4fc1ec?w=400',benefits:'قوت مدافعت، بالوں کی صحت، نظر کی بہتری اور معدہ کے لیے بہترین۔ وٹامن سی سے بھرپور۔',method:'روزانہ صبح نہار منہ ایک سے دو دانے۔',warnings:'شوگر کے مریض کم مقدار میں استعمال کریں۔',desc:'خالص آملہ مربہ'},
+{id:'mur2',category:'murabba',name:'Murabba Harhar',price:850,rating:4.5,image:'https://images.unsplash.com/photo-1563639052-0a3e3a1f3a1c?w=400',benefits:'قبض، جگر کی گرمی اور خون کی صفائی میں مفید۔',method:'رات سوتے وقت ایک دانہ نیم گرم پانی کے ساتھ۔',warnings:'زیادہ استعمال سے دست آسکتے ہیں۔',desc:'دیسی ہرہڑ مربہ'},
+{id:'arq1',category:'arqiyat',name:'Arq-e-Gulab',price:350,rating:4.9,image:'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400',benefits:'آنکھوں کی ٹھنڈک، جلد کی تازگی، گرمی کے اثرات اور دل کی فرحت کے لیے مفید۔',method:'چہرے پر سپرے کریں یا 2 چمچ پانی میں ملا کر پییں۔',warnings:'خالص عرق ہے، اعتدال سے استعمال کریں۔',desc:'خالص گلاب عرق'},
+{id:'arq2',category:'arqiyat',name:'Arq-e-Sounf',price:320,rating:4.7,image:'https://images.unsplash.com/photo-1511485977113-f34c92461ad9?w=400',benefits:'معدہ، گیس، بدہضمی، منہ کی بدبو اور بھوک کی کمی کے لیے مفید۔',method:'50 ملی لیٹر کھانے کے بعد دن میں دو بار۔',warnings:'کوئی خاص مضر اثر نہیں، اعتدال سے استعمال کریں۔',desc:'سونف کا خالص عرق'},
+{id:'arq3',category:'arqiyat',name:'Arq-e-Makoh',price:380,rating:4.6,image:'https://images.unsplash.com/photo-1608571423902-eed4a94d8108?w=400',benefits:'جگر کی اصلاح، یرقان اور جگر کی گرمی میں معاون۔',method:'25 ملی لیٹر صبح شام پانی کے ساتھ۔',warnings:'جگر کے شدید امراض میں معالج سے مشورہ کریں۔',desc:'جگر کے لیے'}
+];
+let STORE=JSON.parse(localStorage.getItem('akhtar_v37_admin_fixed')||'null')||{products:PRODUCTS,hakeem:{name:'Hakeem Malik Muhammad Anwar Mutee Awan',qual:'B.U.M.S, F.T.J, Registered Tib Practitioner',exp:'30+ Years Experience in Unani & Herbal Medicine',bio:'حکیم ملک محمد انور متیع اعوان صاحب روایتی یونانی حکمت اور دیسی جڑی بوٹیوں کے ماہر ہیں۔ آپ کا مقصد خالص، معیاری اور مناسب قیمت پر علاج ہر گھر تک پہنچانا ہے۔ آپ 30 سال سے زائد عرصے سے حکمت کی خدمت میں مصروف ہیں۔',photo:'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400',cert:'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=600'},profiles:[],admin:{u:'',p:''}};
+function save(){localStorage.setItem('akhtar_v37_admin_fixed',JSON.stringify(STORE))}
+async function sha(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+async function init(){if(!STORE.admin.p){STORE.admin.u=await sha('hafiz3691');STORE.admin.p=await sha('zubair3691');save()}}init();
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),3000)}
+function card(p){return `<div class="card rounded-[22px] lg:rounded-[26px] p-4 lg:p-5 flex flex-col items-center justify-center mx-auto text-center shadow-sm"><img src="${p.image}" class="h-[200px] sm:h-[220px] lg:h-[260px] w-full object-cover rounded-[16px] lg:rounded-[20px] bg-[#fdf6e3] border-2 border-[#f3e8d0]"><h3 class="mt-4 lg:mt-5 font-black text-[17px] lg:text-[20px] text-[#3d1f0a] leading-tight">${p.name}</h3><div class="flex justify-center items-center gap-3 lg:gap-4 mt-3 lg:mt-4"><span class="font-black text-[#5D2F0F] text-[16px] lg:text-[19px]">Rs. ${p.price}</span><span class="text-[12px] lg:text-[13px] font-black bg-[#f5e6c8] px-3 lg:px-3.5 py-1.5 rounded-full border-2 border-[#C8A951]">★ ${p.rating}</span></div><div class="grid grid-cols-2 gap-3 lg:gap-4 mt-4 lg:mt-5 w-full"><button onclick="orderNow('${p.id}')" class="order-btn h-11 lg:h-12 rounded-full text-[13px] lg:text-[14px] shadow-md">Order Now</button><button onclick="router('details','${p.id}')" class="detail-btn h-11 lg:h-12 rounded-full text-[13px] lg:text-[14px]">Details</button></div></div>`}
+function orderNow(id){const p=STORE.products.find(x=>x.id===id);const msg=`Assalam-o-Alaikum, I want to order:\nProduct: ${p.name}\nPrice: Rs. ${p.price}\nCategory: ${p.category}`;window.open(`https://wa.me/923013691794?text=${encodeURIComponent(msg)}`,'_blank')}
+function renderHome(a){
+const feat=[...STORE.products].slice(0,6);
+a.innerHTML=`
+<div class="w-full max-w-[1400px] mx-auto flex flex-col items-center">
+<div class="w-full bg-gradient-to-br from-[#fffbeb] via-[#fef3c7] to-[#fde68a] border-[3px] border-[#C8A951]/40 rounded-[20px] lg:rounded-[28px] p-5 lg:p-10 flex flex-col lg:flex-row gap-6 items-center justify-center shadow-lg overflow-hidden">
+<div class="flex-1 text-center max-w-[600px]">
+<span class="inline-block text-[11px] font-black bg-white text-[#5D2F0F] px-4 py-1 rounded-full border-2 border-[#C8A951] shadow-sm">100% Pure Herbal</span>
+<h2 class="urdu-head text-[26px] lg:text-[40px] font-black text-[#3d1f0a] mt-4">خالص حکمت،<br>بھروسہ مند علاج</h2>
+<p class="mt-3 text-[14px] font-black text-gray-700">Authentic Unani medicines at reasonable prices.</p>
+<div class="mt-5 flex gap-3 justify-center">
+<button onclick="router('medicines')" class="h-11 px-8 rounded-full bg-[#5D2F0F] text-white font-black text-[14px] shadow-md">Shop Now →</button>
+<button onclick="router('about')" class="h-11 px-8 rounded-full border-[3px] border-[#5D2F0F] bg-white font-black text-[#5D2F0F] shadow-sm">Our Story</button>
+</div>
+</div>
+<img src="${STORE.hakeem.photo}" class="w-full sm:w-[320px] lg:w-[420px] h-[260px] lg:h-[380px] object-cover rounded-[18px] border-4 border-white shadow-xl shrink-0">
+</div>
+<div class="mt-8 w-full"><h3 class="font-black text-[22px] lg:text-[26px] text-[#3d1f0a] text-center mb-6">Top Rated Products</h3><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 gap-4 lg:gap-6">${feat.map(card).join('')}</div></div>
+</div>
+`;
+}
+function renderCat(a,cat,title){const list=STORE.products.filter(p=>p.category===cat);a.innerHTML=`<div class="w-full max-w-[1400px] mx-auto flex flex-col items-center"><div class="text-center mb-8 lg:mb-10"><h2 class="text-[28px] lg:text-[40px] font-black text-[#3d1f0a]">${title}</h2><p class="text-[14px] lg:text-[16px] font-black text-[#8a6d3b] mt-2">${list.length} Products • Pure Herbal • Big Cards</p></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 lg:gap-8 w-full">${list.map(card).join('')}</div></div>`}
+function renderDetails(a,id){const p=STORE.products.find(x=>x.id===id);a.innerHTML=`<div class="w-full max-w-[1400px] mx-auto flex flex-col items-center"><button onclick="router('home')" class="text-[14px] font-black text-[#5D2F0F] mb-6">← Back</button><div class="grid grid-cols-1 lg:grid-cols-2 gap-8 place-items-center"><img src="${p.image}" class="w-full max-w-[560px] h-[340px] lg:h-[500px] object-cover rounded-[24px] border-[3px]"><div class="text-center"><h1 class="text-[26px] lg:text-[32px] font-black">${p.name}</h1><p class="mt-4 text-[28px] lg:text-[32px] font-black text-[#5D2F0F]">Rs. ${p.price}</p><button onclick="orderNow('${p.id}')" class="mt-8 w-full max-w-[380px] h-14 lg:h-16 rounded-full bg-[#5D2F0F] text-white font-black text-[16px]">Order on WhatsApp</button></div></div><div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10 w-full max-w-[1300px]"><div class="bg-white rounded-[20px] border-[3px] p-6 text-center"><h3 class="font-black text-[18px] border-b-[3px] pb-3 mb-4">فوائد</h3><p class="urdu text-[18px]">${p.benefits}</p></div><div class="bg-white rounded-[20px] border-[3px] p-6 text-center"><h3 class="font-black text-[18px] border-b-[3px] pb-3 mb-4">طریقہ استعمال</h3><p class="urdu text-[18px]">${p.method}</p></div><div class="bg-[#fff8e7] rounded-[20px] border-[3px] border-[#C8A951] p-6 text-center"><h3 class="font-black text-[18px] border-b-[3px] border-[#C8A951] pb-3 mb-4">احتیاطی تدابیر</h3><p class="urdu text-[18px]">${p.warnings}</p></div></div></div>`}
+function renderHakeem(a){const h=STORE.hakeem;a.innerHTML=`<div class="w-full max-w-[1400px] mx-auto flex flex-col items-center"><h2 class="text-[28px] lg:text-[38px] font-black text-[#3d1f0a] text-center tracking-tight">Hakeem Profile</h2><div class="mt-8 lg:mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 w-full max-w-[1200px] place-items-stretch"><div class="bg-white rounded-[24px] lg:rounded-[32px] border-[3px] lg:border-[4px] border-[#f3e8d0] p-8 lg:p-10 flex flex-col items-center justify-center text-center h-[500px] lg:h-[560px] shadow-xl"><img src="${h.photo}" class="w-48 h-48 lg:w-56 lg:h-56 rounded-full object-cover border-[5px] border-[#C8A951] shadow-2xl"><h3 class="mt-6 font-black text-[20px] lg:text-[22px] text-[#3d1f0a] leading-tight">${h.name}</h3><p class="text-[13px] font-black text-[#5D2F0F] mt-2">${h.qual}</p><p class="urdu mt-4 text-[16px] lg:text-[17px] leading-8">${h.bio}</p></div><div class="bg-white rounded-[24px] lg:rounded-[32px] border-[3px] lg:border-[4px] border-[#f3e8d0] p-8 lg:p-10 flex flex-col items-center justify-center text-center h-[500px] lg:h-[560px] shadow-xl"><h4 class="font-black text-[20px] text-[#3d1f0a] mb-6">Tib Certificate</h4><img src="${h.cert}" class="w-full max-w-[400px] h-[280px] lg:h-[360px] object-contain rounded-[18px] border-[3px] bg-[#fdf6e3] shadow-inner"><p class="text-[12px] font-black text-gray-500 mt-6">Original certificate - Verified</p></div></div><div class="mt-8 w-full max-w-[1200px] bg-white rounded-[24px] border-[3px] border-[#f3e8d0] p-6 lg:p-8 shadow-xl"><h3 class="font-black text-[22px] text-center text-[#3d1f0a]">30+ Years Experience & Expertise</h3><div class="mt-8 grid grid-cols-3 gap-4 lg:gap-8 text-center"><div class="bg-[#fdf6e3] rounded-[18px] border-[3px] p-6"><p class="text-[30px] font-black text-[#5D2F0F]">30+</p><p class="text-[12px] font-black mt-1">Years</p></div><div class="bg-[#fdf6e3] rounded-[18px] border-[3px] p-6"><p class="text-[30px] font-black text-[#5D2F0F]">1000+</p><p class="text-[12px] font-black mt-1">Patients</p></div><div class="bg-[#fdf6e3] rounded-[18px] border-[3px] p-6"><p class="text-[30px] font-black text-[#5D2F0F]">100%</p><p class="text-[12px] font-black mt-1">Pure Herbal</p></div></div><div class="mt-8 bg-[#3d1f0a] rounded-[16px] p-6 text-center"><h4 class="font-black text-[16px] text-[#C8A951] urdu">حکیم صاحب کا پیغام</h4><p class="urdu text-[#f5e6c8] text-[16px] mt-4 leading-8">"ہمارا مقصد صرف دوا بیچنا نہیں، بلکہ مریض کو درست مزاج کے مطابق خالص علاج دینا ہے۔"</p></div></div></div>`}
+function renderAbout(a){
+a.innerHTML=`<div class="w-full max-w-[1400px] mx-auto flex flex-col items-center justify-center">
+<div class="bg-white rounded-[24px] lg:rounded-[32px] border-[4px] border-[#f3e8d0] p-6 sm:p-10 lg:p-12 w-full text-center mx-auto shadow-2xl">
+<h1 class="text-[24px] sm:text-[28px] lg:text-[36px] font-black text-[#3d1f0a] urdu text-center mx-auto leading-tight">${STORE.hakeem.name} - اختر انقلابی دواخانہ</h1>
+<p class="text-[14px] lg:text-[16px] font-black text-[#8a6d3b] mt-3 text-center tracking-wide">Established 1995 • 30+ Years of Trust</p>
+<div class="mt-10 lg:mt-14 space-y-8 lg:space-y-10 w-full text-center">
+<div class="bg-[#fdf6e3] rounded-[20px] lg:rounded-[28px] border-[3px] border-[#f3e8d0] p-6 lg:p-8 text-center shadow-sm">
+<h2 class="text-[22px] lg:text-[26px] font-black text-[#5D2F0F] urdu text-center">۱۔ مقدمہ و تعارف</h2>
+<p class="urdu text-[18px] lg:text-[20px] text-gray-900 mt-6 leading-[2.2] text-center">
+اختر انقلابی دواخانہ بیس سال سے زائد عرصے سے نہیں بلکہ <b>1995 سے، یعنی 30 سال سے</b> خالص یونانی اور جڑی بوٹیوں کے علاج کی خدمت میں مصروف ہے۔ ہمارا مقصد محض دوا فروخت کرنا نہیں بلکہ درست مشورہ، صحیح مزاج کی تشخیص اور ملاوٹ سے پاک مصنوعات فراہم کرنا ہے۔ ہم جڑی بوٹیاں براہ راست منڈی سے خرید کر اپنی نگرانی میں دھو کر، خشک کر کے تیار کرتے ہیں تاکہ ملاوٹ سے پاک مصنوعات میسر آئیں۔ ہمارا نعرہ ہے: <b>خالص حکمت، بھروسہ مند علاج</b>۔
+</p>
+</div>
+<div class="bg-white rounded-[20px] lg:rounded-[28px] border-[3px] border-[#f3e8d0] p-6 lg:p-8 text-center shadow-sm">
+<h2 class="text-[22px] lg:text-[26px] font-black text-[#5D2F0F] urdu text-center">۲۔ حکمت کیا ہے؟</h2>
+<p class="urdu text-[18px] lg:text-[20px] text-gray-800 mt-6 leading-[2.2] text-center">
+حکمت ایک قدیم یونانی طب کا نظام ہے جو مزاج، اخلاط اربعہ (خون، بلغم، سودا، صفرا) اور قدرتی علاج پر مبنی ہے۔ اس میں جسم کو قدرتی توازن میں لانا مقصود ہوتا ہے، صرف علامات کو دبانا نہیں۔ ہم اسی اصول پر کام کرتے ہیں۔ ہر دوا کا مزاج دیکھا جاتا ہے، گرم، سرد، تر، خشک، اور اسی کے مطابق تجویز کی جاتی ہے۔ نبض دیکھ کر مزاج معلوم کیا جاتا ہے۔
+</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-8 text-center">
+<div class="bg-[#5D2F0F] text-white rounded-[20px] p-6 lg:p-8 text-center border-[3px] border-[#3d1f0a] shadow-lg"><h3 class="font-black text-[18px] urdu text-center">💊 ادویات</h3><p class="text-[14px] font-black leading-7 opacity-90 mt-4 urdu text-center">معجون فلاسفہ، حب مقوی معدہ، شربت فولاد، سفوف، حبوب - معدہ، جگر، اعصاب، خون کی کمی اور قوت مدافعت کے لیے۔ سب خالص اجزاء سے تیار۔</p></div>
+<div class="bg-[#C8A951] text-[#3d1f0a] rounded-[20px] p-6 lg:p-8 text-center border-[3px] shadow-lg"><h3 class="font-black text-[18px] urdu text-center">🍯 مربہ جات</h3><p class="text-[14px] font-black leading-7 mt-4 urdu text-center">مربہ آملہ، ہرڑ، گاجر، سیب، بہی - قوت مدافعت، ہاضمہ، نظر اور عمومی صحت کے لیے۔ چینی کی بجائے شہد میں تیار کردہ اقسام بھی دستیاب۔</p></div>
+<div class="bg-white border-[3px] border-[#f3e8d0] rounded-[20px] p-6 lg:p-8 text-center shadow-lg"><h3 class="font-black text-[18px] text-[#5D2F0F] urdu text-center">🧴 عرقیات</h3><p class="text-[14px] font-black leading-7 text-gray-800 mt-4 urdu text-center">عرق گلاب، سونف، مکوہ، پودینہ، زیرہ، کاسنی - ہاضمہ، گرمی، جگر، آنکھوں اور جلد کے لیے خالص عرق، بغیر ملاوٹ۔</p></div>
+</div>
+<div class="bg-[#fff8e7] rounded-[20px] border-[3px] border-[#C8A951] p-6 lg:p-8 text-center shadow-sm">
+<h2 class="text-[22px] font-black text-[#3d1f0a] urdu text-center">۳۔ ذمہ دارانہ استعمال اور احتیاط</h2>
+<ul class="mt-6 space-y-3 text-[16px] font-black leading-8 text-gray-900 urdu text-center">
+<li>• کوئی بھی دوا مستقل استعمال سے پہلے حکیم صاحب سے مشورہ ضرور کریں</li>
+<li>• دی گئی خوراک سے زیادہ استعمال نہ کریں، اعتدال بہترین ہے</li>
+<li>• بچے، حاملہ خواتین اور ذیابیطس، بلڈ پریشر کے مریض احتیاط کریں</li>
+<li>• ہم کسی مرض کے سو فیصد علاج کا دعویٰ نہیں کرتے، ہم خالص محنت اور سچے مشورے کا وعدہ کرتے ہیں</li>
+<li>• ادویات کو ٹھنڈی اور خشک جگہ پر رکھیں، بچوں کی پہنچ سے دور رکھیں</li>
+</ul>
+</div>
+<div class="bg-white rounded-[20px] border-[3px] border-[#f3e8d0] p-6 lg:p-8 text-center shadow-sm">
+<h2 class="text-[22px] font-black text-[#5D2F0F] urdu text-center">۴۔ گاہک کی رہنمائی - آرڈر کیسے کریں؟</h2>
+<div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5 text-center">
+<div class="bg-[#fdf6e3] rounded-xl border-[3px] p-5"><p class="font-black text-[16px] text-[#5D2F0F]">Step 1</p><p class="text-[14px] font-black mt-2 urdu">پروڈکٹ پر کلک کریں اور Order Now دبائیں</p></div>
+<div class="bg-[#fdf6e3] rounded-xl border-[3px] p-5"><p class="font-black text-[16px] text-[#5D2F0F]">Step 2</p><p class="text-[14px] font-black mt-2 urdu">واٹس ایپ کھلے گا، پیغام پہلے سے لکھا ہوگا</p></div>
+<div class="bg-[#fdf6e3] rounded-xl border-[3px] p-5"><p class="font-black text-[16px] text-[#5D2F0F]">Step 3</p><p class="text-[14px] font-black mt-2 urdu">بھیج دیں، حکیم صاحب تصدیق کریں گے</p></div>
+</div>
+<div class="mt-8 bg-[#fdf6e3] rounded-xl p-5 border-[3px]">
+<p class="text-[15px] font-black text-gray-800 urdu text-center leading-8">ترسیل: پورے پاکستان میں ترسیل دستیاب ہے (واٹس ایپ پر تصدیق کریں)<br>پروفائل فارم: اگر آپ کو کوئی مسئلہ درپیش ہے تو پروفائل فارم پُر کر کے بھیج دیں، آپ کی معلومات خفیہ رہیں گی<br>اوقات کار: صبح 9 بجے سے رات 8 بجے تک، پیر تا ہفتہ - جمعہ کو بعد نماز جمعہ</p>
+</div>
+</div>
+<div class="bg-[#3d1f0a] rounded-[20px] p-7 text-center border-[4px] border-[#3d1f0a] shadow-xl">
+<h2 class="text-[19px] font-black text-[#C8A951] urdu text-center">⚠️ اہم نوٹ - ضرور پڑھیں</h2>
+<p class="text-[15px] font-black leading-8 text-[#f5e6c8] mt-4 urdu text-center">
+یہ ویب سائٹ صرف معلومات اور رہنمائی کے لیے ہے، کوئی بھی دوا معالج کے مشورے کے بغیر شروع نہ کریں۔ دوا کا اثر ہر مزاج پر مختلف ہو سکتا ہے۔ ہماری تمام ادویات قدرتی جڑی بوٹیوں سے تیار ہیں لیکن پھر بھی کسی بھی الرجی کی صورت میں استعمال روک کر معالج سے رابطہ کریں۔ شفا دینے والی ذات صرف اللہ تعالیٰ کی ہے۔
+</p>
+</div>
+</div>
+</div>
+</div>`}
+function renderProfile(a){a.innerHTML=`<div class="w-full max-w-[500px] mx-auto bg-white rounded-[20px] border-[3px] p-6 text-center"><h2 class="text-[22px] font-black">Customer Profile</h2><form onsubmit="submitProfile(event)" class="mt-6 space-y-3"><input name="name" required placeholder="Full Name *" class="w-full h-11 px-4 border-[2.5px] rounded-xl font-black text-[13px] text-center"><input name="phone" required placeholder="Phone *" class="w-full h-11 px-4 border-[2.5px] rounded-xl font-black text-[13px] text-center"><input name="city" required placeholder="City *" class="w-full h-11 px-4 border-[2.5px] rounded-xl font-black text-[13px] text-center"><textarea name="illness" required rows="3" placeholder="Illness details *" class="w-full px-4 py-3 border-[2.5px] rounded-xl font-black text-[13px] text-center"></textarea><button class="w-full h-11 rounded-full bg-[#5D2F0F] text-white font-black">Submit Profile</button></form></div>`}
+function submitProfile(e){e.preventDefault();const fd=new FormData(e.target);STORE.profiles.push({id:Date.now().toString(),name:fd.get('name'),phone:fd.get('phone'),city:fd.get('city'),illness:fd.get('illness'),date:new Date().toLocaleString()});save();toast('✅ Profile Submitted');e.target.reset()}
+function renderLogin(a){
+a.innerHTML=`
+<div class="w-full min-h-[65vh] flex items-center justify-center py-6">
+<div class="w-full max-w-[520px] mx-auto">
+<div class="bg-white rounded-[28px] border-[3px] border-[#f3e8d0] p-8 shadow-2xl text-center">
+<div class="flex flex-col items-center justify-center">
+<img src="https://i.postimg.cc/k4gTf7qd/akhtar-inqalabi-dawakhana-removebg-preview.png" class="h-[96px] w-[96px] mx-auto border-[5px] border-[#C8A951] rounded-full bg-white p-2 shadow-xl object-contain">
+<h2 class="mt-5 text-[26px] font-black text-[#3d1f0a]">Admin Login</h2>
+<p class="text-[13px] font-black text-[#8a6d3b] mt-1">Secure Access Only</p>
+</div>
+<form onsubmit="handleLogin(event)" class="mt-8 space-y-4 w-full">
+<input id="loginUser" placeholder="Username" value="hafiz3691" class="w-full h-[56px] px-5 border-[3px] border-[#C8A951] rounded-[16px] bg-[#eef4ff] font-black text-[15px] text-center">
+<input id="loginPass" type="password" placeholder="Password" class="w-full h-[56px] px-5 border-[3px] border-[#f3e8d0] rounded-[16px] bg-[#fdf6e3] font-black text-[15px] text-center">
+<button class="w-full h-[56px] rounded-full bg-[#3d1f0a] text-white font-black text-[16px] shadow-xl">Login</button>
+<p id="loginErr" class="hidden text-[13px] font-black text-red-600 text-center bg-red-50 border-2 border-red-200 rounded-xl py-2"></p>
+</form>
+</div>
+</div>
+</div>
+`;
+}
+async function handleLogin(e){e.preventDefault();const u=await sha(document.getElementById('loginUser').value.trim());const p=await sha(document.getElementById('loginPass').value.trim());if(u===STORE.admin.u&&p===STORE.admin.p){sessionStorage.setItem('admin_ok','1');router('dash');toast('Login Success')}else{const err=document.getElementById('loginErr');err.textContent='❌ Invalid credentials - Try again';err.classList.remove('hidden')}}
+function renderDash(a){
+if(sessionStorage.getItem('admin_ok')!=='1'){router('admin');return}
+a.innerHTML=`
+<div class="w-full max-w-[1400px] mx-auto flex flex-col items-center justify-center">
+<div class="w-full flex flex-col items-center justify-center gap-4 text-center">
+<h2 class="text-[30px] font-black text-[#3d1f0a]">Admin Dashboard</h2>
+</div>
+<div class="w-full mt-10 grid admin-grid">
+<div class="admin-side-left w-full" id="leftSide">
+<div class="bg-white rounded-[20px] border-[3px] border-[#f3e8d0] p-4 flex flex-col gap-3 shadow-sm">
+<button onclick="showDash('cred')" id="btn-cred" class="w-full text-center px-5 py-4 rounded-xl bg-[#5D2F0F] text-white font-black text-[14px] shadow-lg">Change Credentials</button>
+<button onclick="showDash('medicines')" id="btn-medicines" class="w-full text-center px-5 py-4 rounded-xl bg-white border-[3px] border-[#f3e8d0] font-black text-[14px]">Medicines</button>
+<button onclick="showDash('murabba')" id="btn-murabba" class="w-full text-center px-5 py-4 rounded-xl bg-white border-[3px] border-[#f3e8d0] font-black text-[14px]">Murabba Jaat</button>
+<button onclick="showDash('arqiyat')" id="btn-arqiyat" class="w-full text-center px-5 py-4 rounded-xl bg-white border-[3px] border-[#f3e8d0] font-black text-[14px]">Arqiyat</button>
+<button onclick="showDash('hakeem')" id="btn-hakeem" class="w-full text-center px-5 py-4 rounded-xl bg-white border-[3px] border-[#f3e8d0] font-black text-[14px]">Hakeem Profile</button>
+<button onclick="showDash('profiles')" id="btn-profiles" class="w-full text-center px-5 py-4 rounded-xl bg-white border-[3px] border-[#f3e8d0] font-black text-[14px]">Customer Profiles (${STORE.profiles.length})</button>
+<button onclick="showDash('about')" id="btn-about" class="w-full text-center px-5 py-4 rounded-xl bg-white border-[3px] border-[#f3e8d0] font-black text-[14px]">About Page</button>
+</div>
+<div class="mt-6 bg-white rounded-[20px] border-[3px] border-[#C8A951] overflow-hidden shadow-xl">
+<img src="${STORE.hakeem.photo}" class="w-full h-[340px] object-cover">
+<div class="bg-[#3d1f0a] text-white text-center py-4 px-3">
+<p class="text-[13px] font-black">${STORE.hakeem.name}</p>
+<p class="text-[11px] opacity-80 font-black mt-1">30+ Years Experience</p>
+</div>
+</div>
+</div>
+<div class="admin-side-right w-full" id="rightSide">
+<div id="dashContent" class="bg-white rounded-[22px] border-[3px] border-[#f3e8d0] p-6 lg:p-8 w-full shadow-xl text-center flex flex-col" style="min-height:100%"></div>
+</div>
+</div>
+<div class="w-full flex justify-center mt-12 mb-4">
+<button onclick="sessionStorage.clear();router('home')" class="h-[56px] px-16 rounded-full bg-white border-[3px] border-[#5D2F0F] text-[#5D2F0F] font-black text-[16px] shadow-xl">Logout</button>
+</div>
+</div>
+`;
+setTimeout(()=>{const left=document.getElementById('leftSide');const right=document.getElementById('dashContent');if(left && right){right.style.minHeight = left.offsetHeight + 'px';}},100);
+showDash('cred');
+}
+function showDash(tab){
+const c=document.getElementById('dashContent');
+document.querySelectorAll('[id^="btn-"]').forEach(b=>{b.className="w-full text-center px-5 py-4 rounded-xl bg-white border-[3px] border-[#f3e8d0] font-black text-[14px]";});
+const activeBtn=document.getElementById('btn-'+tab);
+if(activeBtn) activeBtn.className="w-full text-center px-5 py-4 rounded-xl bg-[#5D2F0F] text-white font-black text-[14px] shadow-lg";
+if(tab==='cred'){
+c.innerHTML=`
+<div class="max-w-[640px] mx-auto text-center w-full flex-1 flex flex-col justify-center py-6">
+<h3 class="font-black text-[24px] text-[#3d1f0a]">Change Username & Password</h3>
+<p class="text-[13px] font-black text-[#8a6d3b] mt-2">Secure Credential Update System</p>
+<form onsubmit="updCred(event)" class="mt-10 space-y-5 text-left">
+<div><label class="text-[12px] font-black text-[#5D2F0F] ml-2 block">Current Username</label><input name="curU" required placeholder="Enter current username" class="w-full h-[56px] px-5 border-[3px] border-[#f3e8d0] rounded-xl font-black text-[14px] bg-[#fdf6e3]"></div>
+<div><label class="text-[12px] font-black text-[#5D2F0F] ml-2 block">Current Password</label><input name="curP" type="password" required placeholder="Enter current password" class="w-full h-[56px] px-5 border-[3px] border-[#f3e8d0] rounded-xl font-black text-[14px] bg-[#fdf6e3]"></div>
+<div class="h-[2px] bg-[#f3e8d0] my-4"></div>
+<div><label class="text-[12px] font-black text-[#5D2F0F] ml-2 block">New Username</label><input name="newU" required placeholder="Enter new username" class="w-full h-[56px] px-5 border-[3px] border-[#C8A951] rounded-xl font-black text-[14px]"></div>
+<div><label class="text-[12px] font-black text-[#5D2F0F] ml-2 block">New Password</label><input name="newP" type="password" required placeholder="Enter new password" class="w-full h-[56px] px-5 border-[3px] border-[#C8A951] rounded-xl font-black text-[14px]"></div>
+<div><label class="text-[12px] font-black text-[#5D2F0F] ml-2 block">Confirm New Password</label><input name="confP" type="password" required placeholder="Confirm new password" class="w-full h-[56px] px-5 border-[3px] border-[#C8A951] rounded-xl font-black text-[14px]"></div>
+<button class="w-full h-[60px] rounded-full bg-[#5D2F0F] text-white font-black text-[16px] mt-6 shadow-xl">Update Credentials</button>
+<p id="credMsg" class="text-[13px] font-black text-center mt-4"></p>
+</form>
+</div>`;
+}
+else if(['medicines','murabba','arqiyat'].includes(tab)){
+const list=STORE.products.filter(p=>p.category===tab);
+const title=tab.charAt(0).toUpperCase()+tab.slice(1);
+c.innerHTML=`
+<div class="w-full text-left">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-black text-[22px] text-[#3d1f0a]">${title} Management - ${list.length} Products</h3>
+<button onclick="openProd('${tab}')" class="h-11 px-6 rounded-full bg-[#5D2F0F] text-white font-black text-[13px] shadow-lg">+ Add New</button>
+</div>
+<div id="prodForm" class="hidden bg-[#fdf6e3] border-[3px] border-[#f3e8d0] rounded-[16px] p-4 mb-6"></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+${list.map(p=>`
+<div class="bg-white border-[3px] border-[#f3e8d0] rounded-[16px] p-3 flex gap-3 items-center text-left">
+<img src="${p.image}" class="h-16 w-16 rounded-xl object-cover border-2 flex-shrink-0">
+<div class="flex-1">
+<p class="font-black text-[14px] text-[#3d1f0a]">${p.name}</p>
+<p class="font-black text-[12px] text-[#8a6d3b]">Rs. ${p.price} • ★ ${p.rating}</p>
+<div class="flex gap-2 mt-2">
+<button onclick="openProd('${tab}','${p.id}')" class="h-7 px-3 rounded-full bg-[#C8A951] text-[#3d1f0a] font-black text-[11px]">Edit</button>
+<button onclick="delProd('${p.id}')" class="h-7 px-3 rounded-full bg-red-100 border-red-300 text-red-700 font-black text-[11px]">Delete</button>
+</div>
+</div>
+</div>
+`).join('') || '<p class="text-center font-black text-gray-500 py-10">No products yet</p>'}
+</div>
+</div>
+`;
+}
+else if(tab==='hakeem'){
+c.innerHTML=`
+<div class="w-full text-left max-w-[700px] mx-auto">
+<h3 class="font-black text-[22px] text-[#3d1f0a] text-center">Edit Hakeem Profile</h3>
+<form onsubmit="saveHakeem(event)" class="mt-8 space-y-4">
+<div><label class="text-[12px] font-black text-[#5D2F0F] ml-2 block">Name</label><input name="name" value="${STORE.hakeem.name}" required class="w-full h-12 px-4 border-[3px] rounded-xl font-black text-[14px]"></div>
+<div><label class="text-[12px] font-black text-[#5D2F0F] ml-2 block">Qualification</label><input name="qual" value="${STORE.hakeem.qual}" required class="w-full h-12 px-4 border-[3px] rounded-xl font-black text-[14px]"></div>
+<div><label class="text-[12px] font-black text-[#5D2F0F] ml-2 block">Bio (Urdu)</label><textarea name="bio" rows="3" required class="w-full px-4 py-3 border-[3px] rounded-xl font-black text-[14px] urdu">${STORE.hakeem.bio}</textarea></div>
+<div><label class="text-[12px] font-black text-[#5D2F0F] ml-2 block">Photo URL</label><input name="photo" value="${STORE.hakeem.photo}" required class="w-full h-12 px-4 border-[3px] rounded-xl font-black text-[12px]"></div>
+<div><label class="text-[12px] font-black text-[#5D2F0F] ml-2 block">Certificate URL</label><input name="cert" value="${STORE.hakeem.cert}" required class="w-full h-12 px-4 border-[3px] rounded-xl font-black text-[12px]"></div>
+<button class="w-full h-12 rounded-full bg-[#5D2F0F] text-white font-black text-[15px] mt-4">Save Hakeem Profile</button>
+</form>
+</div>
+`;
+}
+else if(tab==='profiles'){
+c.innerHTML=`
+<div class="w-full text-left">
+<h3 class="font-black text-[22px] text-[#3d1f0a] text-center">Customer Profiles - ${STORE.profiles.length}</h3>
+<div class="mt-6 space-y-3 max-h-[600px] overflow-y-auto pr-2">
+${STORE.profiles.map(p=>`
+<div class="bg-[#fdf6e3] border-[2px] border-[#f3e8d0] rounded-xl p-3 text-left">
+<p class="font-black text-[14px]">${p.name} - ${p.phone}</p>
+<p class="text-[12px] font-black text-gray-700">${p.city} • ${p.date}</p>
+<p class="text-[11px] font-black mt-1">${p.illness}</p>
+<button onclick="delProfile('${p.id}')" class="mt-2 h-6 px-3 rounded-full bg-red-100 border text-[10px] font-black text-red-700">Delete</button>
+</div>
+`).join('') || '<p class="text-center font-black text-gray-500 py-10">No customer profiles yet</p>'}
+</div>
+</div>
+`;
+}
+else if(tab==='about'){
+c.innerHTML=`
+<div class="w-full text-center">
+<h3 class="font-black text-[22px] text-[#3d1f0a]">About Page Management</h3>
+<p class="text-[14px] font-black text-gray-600 mt-4">About page content is managed from the main About section code.</p>
+<div class="mt-6 bg-[#fdf6e3] border-[3px] border-[#f3e8d0] rounded-xl p-6">
+<p class="font-black text-[15px] text-[#5D2F0F]">Current Hakeem: ${STORE.hakeem.name}</p>
+</div>
+</div>
+`;
+}
+setTimeout(()=>{const left=document.getElementById('leftSide');if(left && c){c.style.minHeight = left.offsetHeight + 'px';}},50);
+}
+async function updCred(e){e.preventDefault();const fd=new FormData(e.target);const uh=await sha(fd.get('curU').trim());const ph=await sha(fd.get('curP').trim());const msgEl=document.getElementById('credMsg');if(uh!==STORE.admin.u||ph!==STORE.admin.p){msgEl.textContent='❌ Wrong current credentials';msgEl.className='text-[13px] font-black text-center mt-4 text-red-600';return}if(fd.get('newP')!==fd.get('confP')){msgEl.textContent='❌ Passwords do not match';msgEl.className='text-[13px] font-black text-center mt-4 text-red-600';return}STORE.admin.u=await sha(fd.get('newU').trim());STORE.admin.p=await sha(fd.get('newP').trim());save();msgEl.textContent='✅ Credentials Updated Successfully';msgEl.className='text-[13px] font-black text-center mt-4 text-green-600';toast('✅ Updated');e.target.reset();}
+function openProd(cat,id=null){
+const f=document.getElementById('prodForm');
+if(!f) return;
+f.classList.remove('hidden');
+const p=id?STORE.products.find(x=>x.id===id):{name:'',price:'',rating:4.8,image:'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400',benefits:'',method:'روزانہ استعمال کریں',warnings:'معالج سے مشورہ کریں',desc:''};
+f.innerHTML=`
+<form onsubmit="saveProd(event,'${cat}','${id||''}')" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-left">
+<input name="name" value="${p.name}" required placeholder="Product Name *" class="h-11 px-3 border-[2.5px] rounded-xl font-black text-[13px] md:col-span-2">
+<input name="price" type="number" value="${p.price}" required placeholder="Price Rs *" class="h-11 px-3 border-[2.5px] rounded-xl font-black text-[13px]">
+<input name="rating" type="number" step="0.1" value="${p.rating||4.8}" required placeholder="Rating *" class="h-11 px-3 border-[2.5px] rounded-xl font-black text-[13px]">
+<input name="image" value="${p.image}" required placeholder="Image URL *" class="h-11 px-3 border-[2.5px] rounded-xl font-black text-[12px] md:col-span-2">
+<textarea name="benefits" rows="2" placeholder="Benefits (Urdu) *" required class="px-3 py-2 border-[2.5px] rounded-xl urdu text-[13px] md:col-span-2">${p.benefits||''}</textarea>
+<textarea name="method" rows="2" placeholder="Method *" required class="px-3 py-2 border-[2.5px] rounded-xl urdu text-[13px] md:col-span-2">${p.method||''}</textarea>
+<textarea name="warnings" rows="2" placeholder="Warnings *" required class="px-3 py-2 border-[2.5px] rounded-xl urdu text-[13px] md:col-span-2">${p.warnings||''}</textarea>
+<div class="flex gap-3 md:col-span-2 mt-2">
+<button class="flex-1 h-11 rounded-full bg-[#5D2F0F] text-white font-black text-[13px]">${id?'Update':'Save'} Product</button>
+<button type="button" onclick="document.getElementById('prodForm').classList.add('hidden')" class="flex-1 h-11 rounded-full bg-white border-[2.5px] font-black text-[13px]">Cancel</button>
+</div>
+</form>`;
+f.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function saveProd(e,cat,id){
+e.preventDefault();
+const fd=new FormData(e.target);
+const obj={
+id:id||cat+Date.now().toString(),
+category:cat,
+name:fd.get('name'),
+price:Number(fd.get('price')),
+rating:Number(fd.get('rating'))||4.8,
+image:fd.get('image'),
+benefits:fd.get('benefits'),
+method:fd.get('method'),
+warnings:fd.get('warnings'),
+desc:fd.get('name')
+};
+if(id) STORE.products=STORE.products.map(x=>x.id===id?{...x,...obj}:x);
+else STORE.products.push(obj);
+save();
+toast(id?'✅ Product Updated':'✅ Product Added');
+document.getElementById('prodForm').classList.add('hidden');
+showDash(cat);
+}
+function delProd(id){
+if(!confirm('Delete this product?')) return;
+STORE.products=STORE.products.filter(x=>x.id!==id);
+save();
+toast('🗑️ Deleted');
+const currentTab = ['medicines','murabba','arqiyat'].find(t=>document.getElementById('btn-'+t)?.className.includes('bg-[#5D2F0F]')) || 'medicines';
+showDash(currentTab);
+}
+function saveHakeem(e){
+e.preventDefault();
+const fd=new FormData(e.target);
+STORE.hakeem.name=fd.get('name');
+STORE.hakeem.qual=fd.get('qual');
+STORE.hakeem.bio=fd.get('bio');
+STORE.hakeem.photo=fd.get('photo');
+STORE.hakeem.cert=fd.get('cert');
+save();
+toast('✅ Hakeem Profile Updated');
+showDash('hakeem');
+}
+function delProfile(id){
+STORE.profiles=STORE.profiles.filter(p=>p.id!==id);
+save();
+toast('🗑️ Profile Deleted');
+showDash('profiles');
+}
+function doSearch(q){const dd=document.getElementById('sDrop');if(!q){dd.classList.add('hidden');return}const lower=q.toLowerCase();const matches=STORE.products.filter(p=>p.name.toLowerCase().includes(lower)).slice(0,6);if(!matches.length){dd.innerHTML=`<div class="p-3 text-xs font-black text-gray-500 text-center">No results</div>`;dd.classList.remove('hidden');return}dd.innerHTML=matches.map(m=>`<div onclick="router('details','${m.id}')" class="flex gap-2 p-2.5 hover:bg-[#fdf6e3] cursor-pointer border-b text-left"><img src="${m.image}" class="h-10 w-10 rounded-xl border object-cover"><div><p class="text-[13px] font-black">${m.name}</p><p class="text-[11px] font-black text-[#8a6d3b]">Rs.${m.price}</p></div></div>`).join('');dd.classList.remove('hidden')}
+function router(route,param=null){document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.nav===route));const app=document.getElementById('app');if(route==='home')renderHome(app);else if(route==='medicines')renderCat(app,'medicines','Medicines');else if(route==='murabba')renderCat(app,'murabba','Murabba Jaat');else if(route==='arqiyat')renderCat(app,'arqiyat','Arqiyat');else if(route==='hakeem')renderHakeem(app);else if(route==='about')renderAbout(app);else if(route==='profile')renderProfile(app);else if(route==='admin')renderLogin(app);else if(route==='dash')renderDash(app);else if(route==='details')renderDetails(app,param);document.getElementById('sDrop').classList.add('hidden');document.getElementById('mMenu').classList.add('hidden');window.scrollTo({top:0,behavior:'smooth'})}
+router('home');
+</script>
+</body>
+</html>
