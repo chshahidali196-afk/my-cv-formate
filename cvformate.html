@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>CV Formate With Colors Final - Reset Fixed</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root{--primary:#1e40af;--primary-dark:#1e3a8a;--primary-light:#2563eb;--border:#93c5fd;--border-light:#bfdbfe;--bg-title:#dbeafe;--bg-title2:#eff6ff;--bg-box:#ffffff;--bg-points:#f8fafc;--outer-border:#000000;--divider:#000000}
+@page{size:A4 portrait;margin:0}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{margin:0;padding:0;background:#f1f5f9;width:100%;min-height:100vh;font-family:Arial,Helvetica,sans-serif}
+body{display:flex;flex-direction:column;align-items:center;overflow:auto;padding:10px 0}
+.color-bar{width:210mm;background:#fff;border:1px solid var(--border);border-radius:12px;padding:8px 10px;margin-bottom:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
+.color-item{display:flex;align-items:center;gap:4px;font-size:9px;font-weight:800;font-family:Arial}
+.color-item input[type=color]{width:22px;height:22px;border:1px solid #ccc;border-radius:4px;cursor:pointer;padding:0}
+.color-item b{font-size:9px;color:var(--primary)}
+.print-wrapper{width:210mm;height:297mm;background:#fff;padding:5mm 5mm 6mm 5mm;box-sizing:border-box;display:flex;justify-content:center;align-items:flex-start;overflow:hidden;flex-shrink:0;box-shadow:0 8px 24px rgba(0,0,0,0.08);border-radius:12px;border:1px solid var(--bg-title)}
+.a4-locked{width:200mm;height:285mm;background:#fff;border:2px solid var(--outer-border);box-sizing:border-box;display:flex;overflow:hidden;flex-shrink:0;border-radius:0px}
+.left{width:31%;height:285mm;padding:5px 5px 5px;background:#ffffff;box-sizing:border-box;display:flex;flex-direction:column;justify-content:flex-start;overflow:hidden;border-right:none}
+.divider{width:2px;min-width:2px;max-width:2px;background:var(--divider);height:285mm;flex-shrink:0;display:block}
+.right{width:calc(69% - 2px);height:285mm;padding:5px 6px 4px 6px;background:#fff;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;font-family:Arial}
+.profile-wrap{display:flex;justify-content:center;margin:4px 0 6px}
+.profile-circle{width:90px;height:90px;border-radius:50%;border:1px solid var(--outer-border);overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--bg-title2);box-shadow:0 3px 8px rgba(0,0,0,0.15)}
+.profile-circle img{width:100%;height:100%;object-fit:cover;display:none}
+#picInput{display:none}
+.sec-wrap{position:relative}
+.sec-title{font-family:Arial;font-weight:900;font-size:13.5px;text-transform:uppercase;padding:5px 28px 5px 12px;margin:6px 0 4px;letter-spacing:0.4px;color:var(--primary);background:linear-gradient(90deg,var(--bg-title),var(--bg-title2));border:1px solid var(--border);border-radius:20px;text-align:left}
+.add-btn{position:absolute;right:4px;top:6px;width:20px;height:20px;border-radius:50%;border:1px solid var(--border);background:var(--primary);color:#fff;font-weight:900;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;z-index:5}
+.add-btn:hover{background:var(--primary-light)}
+.r-title{font-family:Arial;font-weight:900;font-size:15.5px;text-transform:uppercase;letter-spacing:0.5px;color:var(--primary)}
+.right-bottom .r-title{font-size:15.5px;font-weight:900;letter-spacing:0.5px}
+.exp-t{flex:1;border:1px solid var(--border);border-radius:20px;padding:0 8px;height:26px;display:flex;align-items:center;font-family:Arial;font-weight:900;font-size:12.8px;color:var(--primary);background:var(--bg-title2)}
+.exp-t.big{width:65%;flex:none;font-size:14px;background:linear-gradient(90deg,var(--bg-title),var(--bg-title2));color:var(--primary);border:1px solid var(--border);font-weight:900;letter-spacing:0.2px}
+.edu-card .exp-t{font-size:13.5px;font-weight:900;letter-spacing:0.2px}
+.exp-y{width:105px;min-width:105px;border:1px solid var(--border);border-radius:20px;padding:0 6px;height:26px;display:flex;align-items:center;justify-content:center;font-family:Arial;font-size:8.8px;font-weight:900;text-align:center;color:var(--primary);background:var(--bg-title);line-height:1;white-space:nowrap;letter-spacing:0.1px}
+.contact-row{display:flex;gap:0;align-items:center;margin:5px 0;position:relative}
+.c-del{position:absolute;right:-2px;top:-2px;width:14px;height:14px;background:#ef4444;color:#fff;border-radius:50%;font-size:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2}
+.r-icon{width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--primary);color:#fff;font-size:9px;font-weight:900}
+.c-box{border:1px solid var(--border);border-radius:20px;padding:0 7px;flex:1;background:var(--bg-box);min-width:0;display:flex;align-items:center;gap:4px;height:28px;box-shadow:0 1px 3px rgba(59,130,246,0.08)}
+.c-box b{font-family:Arial;font-size:11.2px;font-weight:900;color:var(--primary);white-space:nowrap;line-height:1;display:inline-flex;align-items:center;height:100%}
+.c-box span{font-family:Arial;font-size:10.2px;font-weight:800;color:#000;line-height:1;display:inline-flex;align-items:center;height:100%;white-space:nowrap;overflow:visible;outline:none}
+.p-box{border:1px solid var(--border);border-radius:20px;padding:0 7px;margin:5px 0;width:100%;background:var(--bg-box);display:flex;gap:4px;align-items:center;height:28px;position:relative}
+.p-label{font-family:Arial;font-size:11.2px;font-weight:900;color:var(--primary);white-space:nowrap;line-height:1}
+.p-val{font-family:Arial;font-size:10.2px;font-weight:800;color:#000;line-height:1;outline:none;flex:1}
+.left-spacer{flex:0.05;min-height:2px}
+.skills-wrapper{flex:1;display:flex;flex-direction:column;justify-content:flex-start;margin-top:0}
+.skills-wrapper .sec-title{margin:0 0 3px 0}
+.skills-box{border:1px solid var(--border-light);border-radius:10px;padding:5px 6px;background:var(--bg-points);flex:1;min-height:150px;display:flex;flex-direction:column;justify-content:flex-start;box-shadow:none;overflow:hidden}
+.skills-box li{list-style:none;position:relative;padding-left:11px;font-family:Arial;font-size:11.8px;font-weight:700;line-height:1.85;color:#1e293b;outline:none;display:flex;justify-content:space-between;align-items:center}
+.skills-box li::before{content:"▸";position:absolute;left:0;top:0;font-weight:900;font-size:11px;color:var(--primary-light)}
+.lang-wrap{margin-top:6px}
+.lang-box{border:1px solid var(--border-light);border-radius:10px;padding:5px 6px;min-height:50px;background:var(--bg-points);display:flex;flex-direction:column;justify-content:flex-start;overflow:hidden}
+.lang-box li{list-style:none;position:relative;padding-left:10px;font-family:Arial;font-size:11.2px;font-weight:700;margin:1px 0;color:#1e293b;outline:none;display:flex;justify-content:space-between}
+.lang-box li::before{content:"•";position:absolute;left:0;font-weight:900;color:var(--primary-light)}
+.name-wrap{text-align:center;padding:2px 0 2px;margin-top:10px}
+.name{font-family:Arial;font-size:28px;font-weight:900;letter-spacing:0.5px;line-height:1;color:var(--primary-dark);outline:none}
+.name-line{height:2.5px;background:var(--primary-dark);margin:3px 0 0;border-radius:2px}
+.r-head{display:flex;gap:5px;align-items:center;margin:4px 0 3px;position:relative}
+.summary-box{border:1px solid var(--border);border-radius:10px;padding:6px 7px;background:var(--bg-title2);margin-bottom:6px}
+.summary-text{font-family:'Segoe UI',Calibri,Arial,sans-serif;font-size:12.5px;font-weight:700;line-height:1.55;text-align:justify;outline:none;border:none;background:transparent;white-space:pre-wrap;color:#0f172a;letter-spacing:0.2px}
+.right-top{flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:0;overflow:hidden}
+.exp-card{border:1px solid var(--border-light);border-radius:10px;padding:7px 6px;background:var(--bg-box);margin-bottom:10px;flex:0 0 auto;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 2px 6px rgba(59,130,246,0.06);position:relative}
+.exp-top{display:flex;gap:8px;margin-bottom:4px;align-items:center;justify-content:space-between}
+.exp-c{border:1px solid var(--border-light);border-radius:20px;padding:3px 8px;font-family:Arial;font-size:11.5px;font-weight:800;color:var(--primary);margin-bottom:5px;background:var(--bg-title2);display:flex;align-items:center;height:25px;outline:none}
+.right-bottom .exp-c{font-size:10.5px;font-weight:600;letter-spacing:0.1px;color:var(--primary-dark)}
+.edu-card{border:1px solid var(--bg-title);border-radius:10px;padding:3px 4px;margin-bottom:3px;background:var(--bg-box);position:relative}
+.points{border:1px solid #e0f2fe;border-radius:8px;padding:7px 6px;flex:1;display:flex;flex-direction:column;justify-content:flex-start;background:var(--bg-points);overflow:hidden}
+.points li{list-style:none;position:relative;padding-left:11px;font-family:Arial;font-size:12px;font-weight:600;line-height:2.1;color:#334155;outline:none;display:flex;justify-content:space-between}
+.points li::before{content:"▸";position:absolute;left:0;top:0;font-weight:900;font-size:11px;color:var(--primary-light)}
+.gap-name-summary{height:18px}
+.gap-summary-exp{height:20px}
+.gap-exp-edu{height:0px;flex:1}
+.right-bottom{margin-top:0px;display:flex;flex-direction:column;justify-content:flex-start;gap:0;padding-bottom:2px;overflow:hidden}
+.btn-bar{margin:14px 0;display:flex;gap:8px;justify-content:center;width:210mm;flex-wrap:wrap}
+.btn{padding:9px 14px;border-radius:20px;border:1.5px solid var(--border);font-weight:800;cursor:pointer;font-size:10.5px;background:#fff;font-family:Arial}
+.btn-d{background:linear-gradient(135deg,var(--primary-dark),var(--primary-light));color:#fff;border-color:var(--primary-dark)}
+.btn-box{background:#fff;color:var(--primary);border:1.5px solid var(--border)}
+.btn-reset{background:#dc2626;color:#fff;border-color:#dc2626}
+.no-boxes .sec-title,.no-boxes .c-box,.no-boxes .p-box,.no-boxes .skills-box,.no-boxes .lang-box,.no-boxes .summary-box,.no-boxes .exp-card,.no-boxes .exp-t,.no-boxes .exp-y,.no-boxes .exp-c,.no-boxes .points,.no-boxes .edu-card,.no-boxes .r-icon{border:none!important;box-shadow:none!important;background:transparent!important}
+.no-boxes .a4-locked{border:2px solid var(--outer-border)!important}
+.no-boxes .divider{background:var(--divider)!important;display:block!important;width:2px!important}
+@media print{
+@page{margin:0mm}
+html,body{background:#fff!important;padding:0!important;margin:0!important;width:210mm!important;height:297mm!important;overflow:hidden!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.btn-bar,.add-btn,.c-del,.color-bar{display:none!important}
+.print-wrapper{width:210mm!important;height:297mm!important;padding:4mm!important;margin:0!important;box-shadow:none!important;border-radius:0!important;border:none!important;background:#fff!important}
+.a4-locked{width:202mm!important;height:289mm!important;border:2px solid var(--outer-border)!important;background:#fff!important;border-radius:0!important;display:flex!important}
+.left{width:31%!important;height:289mm!important;background:#fff!important;display:flex!important}
+.divider{width:2px!important;min-width:2px!important;background:var(--divider)!important;height:289mm!important;display:block!important}
+.right{width:calc(69% - 2px)!important;height:289mm!important;background:#fff!important}
+}
+.print-no-boxes .a4-locked{border:2px solid var(--outer-border)!important}
+.print-no-boxes .divider{background:var(--divider)!important;display:block!important;width:2px!important;min-width:2px!important;height:289mm!important}
+.print-no-boxes .sec-title,.print-no-boxes .c-box,.print-no-boxes .p-box,.print-no-boxes .skills-box,.print-no-boxes .lang-box,.print-no-boxes .summary-box,.print-no-boxes .exp-card,.print-no-boxes .exp-y,.print-no-boxes .exp-c,.print-no-boxes .points,.print-no-boxes .edu-card,.print-no-boxes .r-icon{border:none!important;box-shadow:none!important;background:transparent!important}
+.print-no-boxes .exp-t,.print-no-boxes .exp-t.big{background:transparent!important;color:var(--primary)!important;border:none!important;padding-left:0!important}
+.print-with-boxes .a4-locked{border:2px solid var(--outer-border)!important}
+.print-with-boxes .divider{background:var(--divider)!important;display:block!important;width:2px!important;min-width:2px!important;height:289mm!important}
+</style></head><body>
+
+<div class="color-bar" id="colorBar">
+<div class="color-item"><b>Name:</b><input type="color" id="colName" value="#1e3a8a" oninput="updateColors()"></div>
+<div class="color-item"><b>Heading:</b><input type="color" id="colHead" value="#1e40af" oninput="updateColors()"></div>
+<div class="color-item"><b>Border:</b><input type="color" id="colBorder" value="#93c5fd" oninput="updateColors()"></div>
+<div class="color-item"><b>Title BG:</b><input type="color" id="colTitleBg" value="#dbeafe" oninput="updateColors()"></div>
+<div class="color-item"><b>Box BG:</b><input type="color" id="colBoxBg" value="#ffffff" oninput="updateColors()"></div>
+<div class="color-item"><b>Outer Line:</b><input type="color" id="colOuter" value="#000000" oninput="updateColors()"></div>
+<button class="btn btn-box" style="padding:4px 10px;font-size:9px" onclick="resetColors()">Reset Colors</button>
+</div>
+
+<div class="print-wrapper" id="printWrapper">
+<div class="a4-locked" id="cv">
+<div class="left" id="leftCol">
+<div class="left-top">
+<div class="profile-wrap"><div class="profile-circle" onclick="document.getElementById('picInput').click()"><img id="preview"><div id="phText" style="font-size:6.5px;font-weight:800;text-align:center;color:var(--primary-dark)">CLICK<br>PHOTO</div></div><input type="file" id="picInput" accept="image/*"></div>
+<div class="contact-block sec-wrap"><div class="sec-title">CONTACT</div><button class="add-btn" onclick="addContact()">+</button>
+<div id="contactList">
+<div class="contact-row"><div class="c-box"><b>Phone:</b> <span contenteditable="true">0300XXXXXXX</span></div></div>
+<div class="contact-row"><div class="c-box"><b>Email:</b> <span contenteditable="true">yourmail@gmail.com</span></div></div>
+<div class="contact-row"><div class="c-box addr"><b>Address:</b> <span contenteditable="true">Your Address Here</span></div></div>
+</div></div>
+<div class="personal-block sec-wrap"><div class="sec-title">PERSONAL INFO</div><button class="add-btn" onclick="addPersonal()">+</button>
+<div id="personalList">
+<div class="p-box"><span class="p-label">DOB:</span> <span class="p-val" contenteditable="true">DD/MM/YYYY</span></div>
+<div class="p-box"><span class="p-label">Nationality:</span> <span class="p-val" contenteditable="true">Pakistan</span></div>
+<div class="p-box"><span class="p-label">City:</span> <span class="p-val" contenteditable="true">Your City</span></div>
+<div class="p-box"><span class="p-label">Marital Status:</span> <span class="p-val" contenteditable="true">Single</span></div>
+</div></div>
+</div>
+<div class="left-spacer"></div>
+<div class="skills-wrapper">
+<div class="sec-wrap"><div class="sec-title">SKILLS</div><button class="add-btn" onclick="addSkill()">+</button></div>
+<div class="skills-box" id="skillsBox"><li contenteditable="true">New Skill <span class="c-del" onclick="this.parentElement.remove();autoFit()">x</span></li></div>
+<div class="lang-wrap sec-wrap"><div class="sec-title">LANGUAGES</div><button class="add-btn" onclick="addLang()">+</button>
+<div class="lang-box" id="langBox"><li contenteditable="true">Urdu <span class="c-del" onclick="this.parentElement.remove();autoFit()">x</span></li><li contenteditable="true">English <span class="c-del" onclick="this.parentElement.remove();autoFit()">x</span></li></div></div>
+</div>
+</div>
+<div class="divider"></div>
+<div class="right" id="rightCol">
+<div class="right-top">
+<div class="name-wrap"><div class="name" contenteditable="true">YOUR NAME</div><div class="name-line" id="nameLine"></div></div>
+<div class="gap-name-summary"></div>
+<div class="r-head"><div class="r-icon">◉</div><div class="r-title">PROFILE SUMMARY</div></div>
+<div class="summary-box"><div class="summary-text" contenteditable="true">Write your profile summary here.</div></div>
+<div class="gap-summary-exp"></div>
+<div class="r-head sec-wrap" style="width:100%"><div class="r-icon">◫</div><div class="r-title">WORK EXPERIENCE</div><button class="add-btn" style="position:absolute;right:0;top:0" onclick="addExp()">+</button></div>
+<div id="expList"><div class="exp-card"><div class="exp-top"><div class="exp-t big" contenteditable="true">Job Title</div><div class="exp-y" contenteditable="true">Year - Year</div></div><div class="exp-c" contenteditable="true">Company Name | Location</div><div class="points"><li contenteditable="true">Work point <span class="c-del" onclick="this.parentElement.remove()">x</span></li></div><button class="add-btn" style="position:relative;margin-top:4px" onclick="addPoint(this)">+ Point</button><span class="c-del" style="top:4px;right:4px" onclick="this.parentElement.remove();autoFit()">x</span></div></div>
+<div class="gap-exp-edu"></div>
+</div>
+<div class="right-bottom sec-wrap"><div class="r-head"><div class="r-icon">✦</div><div class="r-title">EDUCATION</div></div><button class="add-btn" style="top:0;right:0" onclick="addEdu()">+</button>
+<div id="eduList"><div class="edu-card"><div class="exp-top"><div class="exp-t" contenteditable="true">Degree</div><div class="exp-y" contenteditable="true">Year</div></div><div class="exp-c" contenteditable="true">Institute | City</div><span class="c-del" onclick="this.parentElement.remove();autoFit()">x</span></div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="btn-bar">
+<button class="btn btn-d" onclick="downloadWithBoxes()">📥 Download PDF with Boxes</button>
+<button class="btn btn-box" onclick="downloadWithoutBoxes()">📥 Download PDF without Boxes</button>
+<button class="btn btn-box" onclick="printWithBoxes()">🖨️ Print with Boxes</button>
+<button class="btn btn-box" onclick="printWithoutBoxes()">🖨️ Print without Boxes</button>
+<button class="btn btn-reset" onclick="resetAutoFit()">♻️ RESET / AUTO FIT</button>
+</div>
+
+<script>
+const picInput=document.getElementById('picInput'),preview=document.getElementById('preview'),phText=document.getElementById('phText');
+picInput.addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{preview.src=ev.target.result;preview.style.display='block';phText.style.display='none'};r.readAsDataURL(f)});
+
+function updateColors(){
+ const name=document.getElementById('colName').value;
+ const head=document.getElementById('colHead').value;
+ const border=document.getElementById('colBorder').value;
+ const titleBg=document.getElementById('colTitleBg').value;
+ const boxBg=document.getElementById('colBoxBg').value;
+ const outer=document.getElementById('colOuter').value;
+ document.documentElement.style.setProperty('--primary',head);
+ document.documentElement.style.setProperty('--primary-dark',name);
+ document.documentElement.style.setProperty('--primary-light',head);
+ document.documentElement.style.setProperty('--border',border);
+ document.documentElement.style.setProperty('--border-light',border);
+ document.documentElement.style.setProperty('--bg-title',titleBg);
+ document.documentElement.style.setProperty('--bg-title2','#ffffff');
+ document.documentElement.style.setProperty('--bg-box',boxBg);
+ document.documentElement.style.setProperty('--outer-border',outer);
+ document.documentElement.style.setProperty('--divider',outer);
+ document.getElementById('nameLine').style.background=name;
+}
+function resetColors(){
+ document.getElementById('colName').value='#1e3a8a';
+ document.getElementById('colHead').value='#1e40af';
+ document.getElementById('colBorder').value='#93c5fd';
+ document.getElementById('colTitleBg').value='#dbeafe';
+ document.getElementById('colBoxBg').value='#ffffff';
+ document.getElementById('colOuter').value='#000000';
+ updateColors();
+}
+
+function addContact(){let row=document.createElement('div');row.className='contact-row';row.innerHTML='<div class="c-box"><b contenteditable="true">Label:</b> <span contenteditable="true">Value</span></div><div class="c-del" onclick="this.parentElement.remove();autoFit()">x</div>';document.getElementById('contactList').appendChild(row);autoFit();}
+function addPersonal(){let row=document.createElement('div');row.className='p-box';row.innerHTML='<span class="p-label" contenteditable="true">Label:</span> <span class="p-val" contenteditable="true">Value</span><div class="c-del" onclick="this.parentElement.remove();autoFit()">x</div>';document.getElementById('personalList').appendChild(row);autoFit();}
+function addSkill(){let li=document.createElement('li');li.contentEditable=true;li.innerHTML='New Skill <span class="c-del" onclick="this.parentElement.remove();autoFit()">x</span>';document.getElementById('skillsBox').appendChild(li);autoFit();}
+function addLang(){let li=document.createElement('li');li.contentEditable=true;li.innerHTML='New Language <span class="c-del" onclick="this.parentElement.remove();autoFit()">x</span>';document.getElementById('langBox').appendChild(li);autoFit();}
+function addExp(){let card=document.createElement('div');card.className='exp-card';card.innerHTML='<div class="exp-top"><div class="exp-t big" contenteditable="true">Job Title</div><div class="exp-y" contenteditable="true">Year - Year</div></div><div class="exp-c" contenteditable="true">Company | Location</div><div class="points"><li contenteditable="true">Work point <span class="c-del" onclick="this.parentElement.remove()">x</span></li></div><button class="add-btn" style="position:relative;margin-top:4px" onclick="addPoint(this)">+ Point</button><span class="c-del" style="top:4px;right:4px" onclick="this.parentElement.remove();autoFit()">x</span>';document.getElementById('expList').appendChild(card);autoFit();}
+function addPoint(btn){let ul=btn.previousElementSibling;let li=document.createElement('li');li.contentEditable=true;li.innerHTML='New point <span class="c-del" onclick="this.parentElement.remove();autoFit()">x</span>';ul.appendChild(li);autoFit();}
+function addEdu(){let card=document.createElement('div');card.className='edu-card';card.innerHTML='<div class="exp-top"><div class="exp-t" contenteditable="true">Degree</div><div class="exp-y" contenteditable="true">Year</div></div><div class="exp-c" contenteditable="true">Institute | City</div><span class="c-del" onclick="this.parentElement.remove();autoFit()">x</span>';document.getElementById('eduList').appendChild(card);autoFit();}
+
+function isOverflowing(){
+  const left=document.getElementById('leftCol');
+  const right=document.getElementById('rightCol');
+  return left.scrollHeight > left.clientHeight + 2 || right.scrollHeight > right.clientHeight + 2;
+}
+function autoFit(){
+  let tries=0;
+  while(isOverflowing() && tries < 50){
+    document.querySelectorAll('.skills-box li').forEach(el=>{
+      let s=parseFloat(window.getComputedStyle(el).fontSize);
+      if(s>7) el.style.fontSize=(s*0.95)+'px';
+      el.style.lineHeight='1.3';
+    });
+    document.querySelectorAll('.points li').forEach(el=>{
+      let s=parseFloat(window.getComputedStyle(el).fontSize);
+      if(s>7) el.style.fontSize=(s*0.96)+'px';
+      el.style.lineHeight='1.4';
+    });
+    document.querySelectorAll('.lang-box li').forEach(el=>{
+      let s=parseFloat(window.getComputedStyle(el).fontSize);
+      if(s>7) el.style.fontSize=(s*0.95)+'px';
+    });
+    document.querySelectorAll('.c-box, .p-box, .exp-c').forEach(el=>{
+      let s=parseFloat(window.getComputedStyle(el).fontSize);
+      if(el.style.fontSize=='' && s>9) el.style.fontSize=(s*0.98)+'px';
+    });
+    tries++;
+  }
+}
+function resetAutoFit(){
+  // sab inline font-size hata do wapis original par
+  document.querySelectorAll('#cv li, #cv .c-box, #cv .p-box, #cv .exp-c, #cv .summary-text').forEach(el=>{
+    el.style.fontSize='';
+    el.style.lineHeight='';
+  });
+  // gap thora kam karke fit check
+  document.querySelectorAll('.gap-name-summary, .gap-summary-exp').forEach(el=>{
+    el.style.height='';
+  });
+  setTimeout(()=>{
+    if(isOverflowing()){
+      autoFit();
+      alert('Reset ho gaya! CV ko auto chota karke A4 me fit kar diya gaya hai.');
+    }else{
+      alert('Reset ho gaya! Structure original par aa gaya hai.');
+    }
+  },120);
+}
+
+function downloadWithBoxes(){
+ document.body.classList.remove('no-boxes');document.body.classList.add('print-with-boxes');
+ html2pdf().set({margin:0,filename:'CV_Formate_With_Boxes.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:3,useCORS:true,backgroundColor:'#ffffff',scrollY:0},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('printWrapper')).save();
+ setTimeout(()=>{document.body.classList.remove('print-with-boxes')},800);
+}
+function downloadWithoutBoxes(){
+ document.body.classList.add('no-boxes');document.body.classList.add('print-no-boxes');
+ html2pdf().set({margin:0,filename:'CV_Formate_Without_Boxes.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:3,useCORS:true,backgroundColor:'#ffffff',scrollY:0},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('printWrapper')).save();
+ setTimeout(()=>{document.body.classList.remove('no-boxes');document.body.classList.remove('print-no-boxes')},1000);
+}
+function printWithBoxes(){
+ document.body.classList.remove('print-no-boxes');document.body.classList.add('print-with-boxes');window.print();setTimeout(()=>{document.body.classList.remove('print-with-boxes')},800);
+}
+function printWithoutBoxes(){
+ document.body.classList.remove('print-with-boxes');document.body.classList.add('print-no-boxes');window.print();setTimeout(()=>{document.body.classList.remove('print-no-boxes')},800);
+}
+</script></body></html>
