@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Alliance Crop Sciences</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Nastaliq+Urdu:wght@600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+html,body{overflow-x:hidden;max-width:100vw;width:100%;}
+body{background:linear-gradient(135deg,#e8f5e9 0%,#e3f2fd 50%,#f3e5f5 100%);min-height:100vh;background-attachment:fixed}
+header{position:fixed;top:10px;left:50%;transform:translateX(-50%);width:98%;max-width:1380px;display:flex;align-items:center;justify-content:space-between;gap:10px;z-index:999;box-sizing:border-box;}
+.logo-side{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.35);backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,.55);border-radius:50px;padding:6px 10px 6px 8px;box-shadow:0 8px 24px rgba(0,0,0,.07);flex-shrink:0;}
+.logo-side img{height:48px}
+#adminBtnHeader{background:rgba(22,163,74,.9);color:#fff;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid rgba(255,255,255,.4)}
+nav#mainNav{flex:1;min-width:0;max-width:1000px;width:auto;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.32);backdrop-filter:blur(28px);padding:6px 8px;border-radius:50px;margin:0 auto;border:1px solid rgba(255,255,255,.65);box-shadow:0 12px 40px rgba(0,0,0,.10)}
+.nav-links{display:flex;align-items:center;gap:1px;flex-shrink:1;}
+nav a,.drop-btn{padding:9px 12px;border-radius:30px;font-size:13px;font-weight:700;color:#1e293b;cursor:pointer;transition:.3s;white-space:nowrap;}
+nav a:hover,.drop-btn:hover{background:rgba(255,255,255,.7);color:#0f3d9e!important}
+nav a.active{background:rgba(15,61,158,.92);color:#fff!important;font-weight:800}
+.nav-search{position:relative;display:flex;align-items:center;background:linear-gradient(180deg, rgba(255,255,255,.85) 0%, rgba(255,255,255,.55) 100%);border:1.5px solid rgba(255,255,255,.85);border-radius:50px;padding:3px 5px 3px 3px;box-shadow:0 4px 16px rgba(0,0,0,.08);margin-left:6px;flex-shrink:0;}
+.nav-search input{width:150px;background:transparent;border:none;padding:8px 8px 8px 14px;font-size:13px;outline:none;color:#1e293b;font-weight:500}
+.nav-search .s-btn{width:38px;height:38px;background:#0f3d9e;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(15,61,158,.35);font-size:18px;color:#fff;border:1px solid rgba(255,255,255,.2)}
+.profile-side{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.nav-profile{width:44px;height:44px;background:rgba(255,255,255,.75);border:1.5px solid rgba(255,255,255,.75);color:#0f3d9e;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px}
+.dropdown{position:relative}
+.drop-list{position:absolute;top:52px;left:0;background:rgba(255,255,255,.82);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.7);border-radius:18px;width:240px;display:none;box-shadow:0 20px 50px rgba(0,0,0,.14);overflow:hidden}
+.drop-list.show{display:block}
+.drop-list div{padding:12px 18px;font-size:13px;cursor:pointer;border-bottom:1px solid rgba(0,0,0,.05);color:#475569;font-weight:600}
+.drop-list div:hover{background:rgba(15,61,158,.92);color:#fff}
+.hero{max-width:1280px;width:96%;margin:95px auto 20px;display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:0;box-sizing:border-box;}
+.left-box{background:linear-gradient(135deg, rgba(220,252,231,.88) 0%, rgba(219,234,254,.88) 100%);border:1px solid rgba(187,247,208,.85);border-radius:24px;padding:28px;display:flex;flex-direction:column;justify-content:center;min-height:380px}
+.left-box h1{font-size:42px;font-weight:800;line-height:.95}
+.left-box p{margin:14px 0;color:#334155;font-size:14.5px;font-weight:500}
+.right-box{border-radius:24px;overflow:hidden;min-height:380px;background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.55)}
+.right-box img{width:100%;height:100%;object-fit:cover}
+.btn{padding:10px 18px;background:rgba(15,61,158,.92);color:#fff;border-radius:14px;font-weight:700;cursor:pointer;display:inline-block;font-size:13px;border:1px solid rgba(255,255,255,.35);text-decoration:none}
+.btn-green{background:rgba(37,211,102,.9);display:inline-flex;align-items:center;gap:7px}.btn-yellow{background:rgba(245,158,11,.9);color:#fff}.btn-red{background:rgba(239,68,68,.9)}
+.wa-icon{width:20px;height:20px;background:#fff;border-radius:50%;padding:3px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.page{display:none!important;padding:90px 2% 30px;max-width:1280px;width:96%;margin:auto;min-height:85vh;box-sizing:border-box;}
+.page.active{display:block!important}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;margin-top:18px;justify-items:center;}
+.card{background:rgba(255,255,255,.58);border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.65);cursor:pointer;box-shadow:0 10px 28px rgba(0,0,0,.06);transition:.35s;width:100%;max-width:340px;}
+.card img{width:100%;height:260px;object-fit:contain;background:#fff;padding:8px}
+.card-body{padding:12px;text-align:center!important;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.card-body h4,.card-body p,.card-body span{text-align:center!important;margin-left:auto;margin-right:auto}
+.tag{font-size:11px;background:rgba(220,252,231,.85);color:#166534;padding:3px 10px;border-radius:20px;font-weight:700;display:inline-block}
+#detail{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(238,243,239,.7);backdrop-filter:blur(22px);z-index:1000;display:none;overflow:auto;padding:20px}
+.admin{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.65);border-radius:20px;padding:16px;margin-top:20px;display:none}
+.admin input,.admin textarea,.admin select{width:100%;padding:10px;margin-top:8px;border:1px solid rgba(203,213,225,.6);border-radius:12px;background:rgba(255,255,255,.65)}
+#contact{max-width:1280px}
+.contact-wrap{max-width:1150px;margin:24px auto;display:grid;grid-template-columns:1.2fr 0.8fr;gap:24px}
+.contact-wrap>div{background:rgba(255,255,255,.70);backdrop-filter:blur(20px);padding:28px;border-radius:24px;border:1px solid rgba(255,255,255,.65);box-shadow:0 12px 32px rgba(0,0,0,.06);min-height:520px}
+.mob{display:none;font-size:22px;cursor:pointer;background:rgba(255,255,255,.6);width:42px;height:42px;border-radius:50%;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.6)}
+.input{width:100%;padding:13px 16px;border:1.8px solid #cbd5e1;border-radius:14px;margin-top:12px;font-size:14px;outline:none;background:#fff;color:#0f172a;font-weight:500}
+.admin-login-card{max-width:440px;margin:30px auto;background:rgba(255,255,255,.85);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.7);border-radius:24px;padding:32px;box-shadow:0 16px 40px rgba(0,0,0,.10);text-align:center}
+.admin-login-card img{height:75px;margin-bottom:14px}
+.home-extra{background:rgba(255,255,255,.7);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.6);border-radius:20px;padding:22px;box-shadow:0 8px 24px rgba(0,0,0,.05);transition:.3s;cursor:pointer;text-align:center;}
+.crop-page{max-width:1000px;width:100%;margin:20px auto;background:rgba(255,255,255,.82);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.7);border-radius:26px;padding:28px;box-shadow:0 16px 40px rgba(0,0,0,.08);box-sizing:border-box;}
+footer{background:rgba(15,23,42,.92);color:#e2e8f0;padding:8px 2%;margin-top:15px;border-top:1px solid rgba(255,255,255,.08);text-align:center;width:100%;box-sizing:border-box;}
+.footer-one-line{max-width:1280px;width:96%;margin:auto;display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;font-size:9px;color:#94a3b8;text-align:center;}
+@media(max-width:1200px){nav a,.drop-btn{padding:8px 10px;font-size:12px;} .nav-search input{width:120px;} .left-box h1{font-size:36px;}}
+@media(max-width:900px){.hero{grid-template-columns:1fr;margin-top:110px;width:94%}.mob{display:flex!important}nav#mainNav{position:fixed;top:78px;left:1%;right:1%;flex-direction:column;padding:14px;display:none;max-width:100%;border-radius:22px;width:98%}.nav-links{flex-direction:column;width:100%;gap:4px}.nav-links a,.drop-btn{width:100%;text-align:center}.nav-search{width:100%;margin-left:0;margin-top:8px}.nav-search input{width:100%}nav#mainNav.show{display:flex}.contact-wrap{grid-template-columns:1fr}.grid{justify-items:center;}}
+@media(max-width:500px){.hero{width:94%}.left-box h1{font-size:26px}.grid{grid-template-columns:1fr 1fr;gap:12px;} .card{max-width:100%;}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo-side">
+<img src="https://i.postimg.cc/FsPnDzNz/Whats-App-Image-2026-09-28-at-2-14-00-PM-removebg-preview.png">
+<button id="adminBtnHeader" onclick="goAdminLoginPage()">Admin</button>
+</div>
+<nav id="mainNav">
+<div class="nav-links">
+<a onclick="go('home',this)" class="active">Home</a>
+<div class="dropdown">
+<div class="drop-btn" onclick="toggleDrop(event)">Our Products ▾</div>
+<div class="drop-list" id="drop">
+<div onclick="filterProd('All')">★ Show All</div>
+<div onclick="filterProd('Fertilizer & Foliar')">Fertilizer & Foliar</div>
+<div onclick="filterProd('Pesticide Products')">Pesticide Products</div>
+<div onclick="filterProd('Fungicides Products')">Fungicides Products</div>
+<div onclick="filterProd('Herbicide Products')">Herbicide Products</div>
+<div onclick="filterProd('Tablets')">Tablets</div>
+</div>
+</div>
+<a onclick="go('farmer',this)">Farmer Info</a>
+<a onclick="go('crops',this)">Crops Info</a>
+<a onclick="go('contact',this)">Contact Us</a>
+<a onclick="go('about',this)">About</a>
+</div>
+<div class="nav-search">
+<input id="navSearchInput" type="text" placeholder="Search..." onkeyup="if(event.key==='Enter') searchProd(this.value)">
+<button class="s-btn" onclick="searchProd(document.getElementById('navSearchInput').value)">🔍</button>
+</div>
+</nav>
+<div class="profile-side">
+<div class="nav-profile" onclick="go('login')">👤</div>
+<div class="mob" onclick="document.getElementById('mainNav').classList.toggle('show')">☰</div>
+</div>
+</header>
+<div id="login" class="page">
+<div style="max-width:500px;margin:20px auto;text-align:center">
+<h2 style="font-size:28px;font-weight:800;color:#0f172a">Profile</h2>
+<p style="font-size:13px;color:#64748b;margin-top:6px">Alliance Crop Sciences - Farmer / Dealer Profile</p>
+<div style="margin-top:20px;background:rgba(255,255,255,.85);backdrop-filter:blur(20px);padding:24px;border-radius:24px;border:1px solid rgba(255,255,255,.7);box-shadow:0 12px 32px rgba(0,0,0,.08);text-align:left">
+<label style="font-size:13px;font-weight:700;color:#0f172a">Email</label><input id="lemail" class="input" placeholder="Enter Email">
+<label style="font-size:13px;font-weight:700;color:#0f172a;margin-top:12px;display:block">Phone</label><input id="lphone" class="input" placeholder="03XX-XXXXXXX">
+<label style="font-size:13px;font-weight:700;color:#0f172a;margin-top:12px;display:block">Shop Name</label><input id="lshop" class="input" placeholder="Enter Shop Name">
+<label style="font-size:13px;font-weight:700;color:#0f172a;margin-top:12px;display:block">Address</label><textarea id="laddr" class="input" placeholder="Enter Full Address" style="height:80px;resize:none"></textarea>
+<button class="btn" style="width:100%;margin-top:16px;padding:13px;font-size:14px" onclick="doLogin()">Submit Profile</button>
+<div id="loginShow" style="display:none;margin-top:12px;background:rgba(240,253,244,.9);border:1px solid #bbf7d0;padding:12px;border-radius:12px;font-size:13px"></div>
+</div>
+</div>
+</div>
+<div id="home" class="page active">
+<div class="hero">
+<div class="left-box">
+<h1><span style="color:#0f172a">Alliance</span> <span style="color:#0f3d9e">Crop Sciences</span></h1>
+<p>We Provide High Quality Pesticides, Fungicides, Herbicides And Fertilizers To Help Farmers Achieve Better Yield And Prosperity Across Multan & South Punjab.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><a onclick="go('products')" class="btn">View Products</a>
+<a href="https://wa.me/923030634055" class="btn btn-green"><span class="wa-icon"><svg viewBox="0 0 32 32" width="14" height="14" fill="#25D366"><path d="M16 0C7.16 0 0 7.16 0 16c0 2.82.74 5.46 2.03 7.76L0 32l8.44-2.02A15.94 15.94 0 0016 32c8.84 0 16-7.16 16-16S24.84 0 16 0zm0 28.8c-2.45 0-4.82-.64-6.9-1.86l-.5-.29-5.01 1.2 1.23-4.88-.32-.5A12.75 12.75 0 013.2 16C3.2 8.95 8.95 3.2 16 3.2S28.8 8.95 28.8 16 23.05 28.8 16 28.8zm7.26-9.57c-.4-.2-2.37-1.17-2.74-1.3-.36-.14-.63-.2-.9.2s-1.03 1.3-1.27 1.57c-.23.27-.46.3-.86.1-.4-.2-1.68-.62-3.2-1.98-1.18-1.05-1.98-2.35-2.21-2.75-.23-.4-.02-.62.17-.82.17-.17.4-.46.6-.7.2-.23.26-.4.4-.66.13-.27.07-.5-.04-.7-.1-.2-.9-2.17-1.23-2.97-.32-.78-.65-.67-.9-.68h-.77c-.27 0-.7.1-1.07.5-.36.4-1.4 1.37-1.4 3.33s1.43 3.86 1.63 4.13c.2.27 2.81 4.3 6.82 6.03.95.41 1.7.66 2.28.84.96.31 1.83.26 2.52.16.77-.11 2.37-.97 2.7-1.9.33-.94.33-1.74.23-1.9-.1-.17-.36-.27-.76-.47z"/></svg></span> WhatsApp</a>
+<a onclick="go('contact')" class="btn" style="background:rgba(255,255,255,.75);color:#0f3d9e">Contact Us</a></div>
+<p style="margin-top:14px;font-size:12px;color:#16a34a;font-weight:700">✓ 100% Genuine | ✓ Same Day Delivery | ✓ Free Field Visit</p>
+</div>
+<div class="right-box"><img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=800&q=80"></div>
+</div>
+<div style="max-width:1300px;margin:10px auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+<div class="home-extra" style="border-left:4px solid #16a34a"><h4>🌿 100% Genuine Products</h4><p style="font-size:13px;color:#475569;margin-top:6px">No copy - direct company packing for cotton, wheat, rice, maize & vegetables.</p></div>
+<div class="home-extra" style="border-left:4px solid #0f3d9e"><h4>🚚 Same Day Delivery</h4><p style="font-size:13px;color:#475569;margin-top:6px">Multan, Vehari, Khanewal, Lodhran, Muzaffargarh me same day delivery.</p></div>
+<div class="home-extra" style="border-left:4px solid #f59e0b"><h4>👨‍🌾 Expert Support</h4><p style="font-size:13px;color:#475569;margin-top:6px">Soil testing, spray schedule, dosage - WhatsApp 24/7: 0303-0634055</p></div>
+</div>
+<div style="max-width:1300px;margin:30px auto;padding:0 20px"><h2 style="text-align:center">Our Best Products</h2><div class="grid" id="homeGrid"></div><div style="text-align:center;margin-top:18px"><a onclick="go('products')" class="btn">View All Products →</a></div></div>
+<div style="max-width:1300px;margin:30px auto;padding:0 20px">
+<h2 style="text-align:center">Crops We Serve - Multan Region - Click For Details</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:16px">
+<div class="home-extra" style="text-align:center;padding:16px" onclick="go('cropWheat')"><div style="font-size:22px">🌾</div><b style="font-size:14px">Wheat</b><br><span style="font-size:11px;color:#64748b">Nov-Dec sowing</span><br><span style="font-size:10px;color:#0f3d9e;font-weight:700;margin-top:4px;display:block">👉 Click For Info</span></div>
+<div class="home-extra" style="text-align:center;padding:16px" onclick="go('cropCotton')"><div style="font-size:22px">🌿</div><b style="font-size:14px">Cotton</b><br><span style="font-size:11px;color:#64748b">April-May</span><br><span style="font-size:10px;color:#0f3d9e;font-weight:700;margin-top:4px;display:block">👉 Click For Info</span></div>
+<div class="home-extra" style="text-align:center;padding:16px" onclick="go('cropRice')"><div style="font-size:22px">🍚</div><b style="font-size:14px">Rice</b><br><span style="font-size:11px;color:#64748b">June-July</span><br><span style="font-size:10px;color:#0f3d9e;font-weight:700;margin-top:4px;display:block">👉 Click For Info</span></div>
+<div class="home-extra" style="text-align:center;padding:16px" onclick="go('cropMaize')"><div style="font-size:22px">🌽</div><b style="font-size:14px">Maize</b><br><span style="font-size:11px;color:#64748b">Feb & July</span><br><span style="font-size:10px;color:#0f3d9e;font-weight:700;margin-top:4px;display:block">👉 Click For Info</span></div>
+<div class="home-extra" style="text-align:center;padding:16px" onclick="go('cropVegetables')"><div style="font-size:22px">🥭</div><b style="font-size:14px">Vegetables</b><br><span style="font-size:11px;color:#64748b">All season</span><br><span style="font-size:10px;color:#0f3d9e;font-weight:700;margin-top:4px;display:block">👉 Click For Info</span></div>
+</div>
+</div>
+<div style="max-width:1300px;margin:30px auto;padding:0 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+<div class="home-extra" style="text-align:center;background:rgba(15,61,158,.88);color:#fff"><h2 style="font-size:28px">500+</h2><p style="font-size:13px">Happy Farmers</p></div>
+<div class="home-extra" style="text-align:center;background:rgba(22,163,74,.88);color:#fff"><h2 style="font-size:28px">50+</h2><p style="font-size:13px">Quality Products</p></div>
+<div class="home-extra" style="text-align:center;background:rgba(245,158,11,.88);color:#fff"><h2 style="font-size:28px">5+</h2><p style="font-size:13px">Years Experience</p></div>
+</div>
+</div>
+<div id="cropWheat" class="page">
+<div class="crop-page">
+<h2>🌾 گندم - مکمل رہنمائی</h2>
+<p style="text-align:center;color:#64748b;font-size:13px;margin-top:6px">Wheat Complete Guide - Alliance Crop Sciences Multan</p>
+<div class="crop-section"><h3>📅 کاشت کا وقت اور زمین</h3><div class="urdu">گندم کی بہترین کاشت 15 نومبر سے 15 دسمبر تک ہے۔ دیر سے کاشت پر پیداوار 10-15% کم ہو جاتی ہے۔ زمین بھربھری اور پانی کا نکاس اچھا ہونا چاہیے۔ 2-3 ہل اور سہاگہ کافی ہے۔ ملتان، وہاڑی، خانیوال میں نومبر کے آخر میں کاشت بہترین ہے۔</div></div>
+<div class="crop-section green"><h3>🌱 بیج اور شرح بیج</h3><div class="urdu">ترقی دادہ اقسام: اکبر 2019، بھکر سٹار، فخر بھکر، اناج 2017۔ شرح بیج: 50 کلو گرام فی ایکڑ (وقت پر کاشت)، لیٹ کاشت میں 55-60 کلو۔ بیج کو ٹاپسن ایم 2 گرام فی کلو سے زہر آلود کریں۔</div></div>
+<div class="crop-section orange"><h3>💩 کھاد پلان - Fertilizer Plan</h3><div class="urdu"><b>بجائی پر:</b> DAP 1 بوری + SOP 1/2 بوری<br><b>پہلا پانی (21 دن):</b> یوریا 1 بوری + زنک 21% 5 کلو<br><b>دوسرا پانی (45 دن):</b> یوریا 1 بوری + بوران 1 کلو (گوبھ پر)<br><b>فولئیر:</b> NPK 20-20-20 1 کلو فی ایکڑ گوبھ پر، امائنو ایسڈ 500 ملی لیٹر — دانہ موٹا ہوگا۔</div></div>
+<div class="crop-section"><h3>🦠 بیماریاں اور جڑی بوٹیاں</h3><div class="urdu"><b>کنگھی / رسٹ (پیلی دھاریاں):</b> ٹیبوکونازول 200 ملی لیٹر یا ایزوکسی سٹروبن 200 ملی لیٹر فی ایکڑ۔<br><b>جڑی بوٹیاں (دمبی سٹی، باتھو):</b> کلودینا فاپ + میٹ سلفیوران 400 گرام فی ایکڑ 30-35 دن پر۔<br><b>تھریپس / تیلا:</b> امیڈا کلوپرڈ 100 ملی لیٹر یا تھائیو میتھوگزم 80 گرام۔</div></div>
+<div class="crop-section green"><h3>💊 Alliance کی تجویز کردہ ادویات</h3><div class="urdu">رسٹ کے لیے: Alliance Fungicide (Tebuconazole + Azoxystrobin) — 200 ملی لیٹر/ایکڑ<br>جڑی بوٹی کے لیے: Alliance Herbicide Wheat — 400 گرام/ایکڑ<br>پیداوار بڑھانے کے لیے: NPK + Boron + GA3 Tablet 1 گولی 20 لیٹر پانی میں</div></div>
+<div style="text-align:center;margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a onclick="go('home')" class="btn">← Back to Home</a><a href="https://wa.me/923030634055?text=Mujhe Wheat ka spray chahiye" class="btn btn-green">Contact on WhatsApp</a></div>
+</div>
+</div>
+<div id="cropCotton" class="page">
+<div class="crop-page">
+<h2>🌿 کپاس - مکمل رہنمائی</h2>
+<p style="text-align:center;color:#64748b;font-size:13px">Cotton Complete Guide - Multan Region</p>
+<div class="crop-section"><h3>📅 کاشت کا وقت اور اقسام</h3><div class="urdu">کپاس کی کاشت 15 اپریل سے 31 مئی تک بہترین ہے۔ اقسام: BS-15، FH-142، MNH-886، CKC-3۔ فاصلہ: لائن سے لائن 2.5 فٹ، پودے سے پودا 1 فٹ۔ شرح بیج: 8-10 کلو فی ایکڑ۔</div></div>
+<div class="crop-section green"><h3>💩 کھاد پلان</h3><div class="urdu"><b>بجائی پر:</b> DAP 1 بوری + SOP 1 بوری<br><b>40 دن پر:</b> یوریا 1 بوری + ہیومک ایسڈ 8 لیٹر فلڈ<br><b>70 دن پر (پھول پر):</b> یوریا 1 بوری + پوٹاش 10 کلو + بوران 1 کلو<br><b>فولئیر:</b> NPK 20-20-20 + امائنو ایسڈ ہر 15 دن بعد — ٹینڈے کا سائز بڑھے گا۔</div></div>
+<div class="crop-section orange"><h3>🦠 سب سے بڑی بیماریاں اور کیڑے</h3><div class="urdu"><b>سفید مکھی + سبز تیلا + تھریپس:</b> کپاس کا سب سے بڑا دشمن۔ امیڈا کلوپرڈ 200 ملی لیٹر + بائی فینتھرین 250 ملی لیٹر فی ایکڑ ہر 10 دن بعد بدل کر سپرے کریں۔<br><b>گلابی سنڈی + لشکری سنڈی:</b> ایما میکٹن 200 ملی لیٹر یا کلورفیناپائر 300 ملی لیٹر۔<br><b>پتہ مروڑ وائرس:</b> سفید مکھی کو کنٹرول کریں، وائرس والی فصل اکھاڑ دیں۔</div></div>
+<div class="crop-section"><h3>💊 Alliance کی تجویز</h3><div class="urdu">چوسنے والے کیڑوں کے لیے: Bifenthrin 10% EC 250ml + Imidacloprid 200ml / ایکڑ<br>سنڈی کے لیے: Emamectin Benzoate 200ml / ایکڑ<br>پھول گرنے سے بچاؤ کے لیے: Boron 500 گرام + GA3 Tablet 1 گولی + NPK 1 کلو فولئیر</div></div>
+<div style="text-align:center;margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a onclick="go('home')" class="btn">← Back to Home</a><a href="https://wa.me/923030634055?text=Mujhe Cotton ka spray chahiye" class="btn btn-green">Contact on WhatsApp</a></div>
+</div>
+</div>
+<div id="cropRice" class="page">
+<div class="crop-page">
+<h2>🍚 چاول / دھان - مکمل رہنمائی</h2>
+<p style="text-align:center;color:#64748b;font-size:13px">Rice / Basmati Guide</p>
+<div class="crop-section"><h3>📅 کاشت کا وقت</h3><div class="urdu">پنیری: 20 مئی سے 15 جون۔ منتقلی: 20 جون سے 20 جولائی۔ باسمتی اقسام: سپر باسمتی، 1121 کائنات، 1509۔ شرح پنیری: 6-8 کلو فی ایکڑ۔ فاصلہ: 9 انچ لائن سے لائن۔</div></div>
+<div class="crop-section green"><h3>💩 کھاد پلان</h3><div class="urdu"><b>منتقلی سے پہلے:</b> DAP 1 بوری + زنک سلفیٹ 33% 6 کلو<br><b>20 دن بعد:</b> یوریا 1 بوری<br><b>40 دن بعد (گوبھ سے پہلے):</b> یوریا 1 بوری + پوٹاش 10 کلو + بوران 1 کلو<br><b>فولئیر:</b> پوٹاشیم نائٹریٹ 1 کلو + بوران 500 گرام — دانہ چمکدار اور وزن زیادہ۔</div></div>
+<div class="crop-section orange"><h3>🦠 بیماریاں</h3><div class="urdu"><b>جھلساؤ (Blast):</b> ایزوکسی سٹروبن 200 ملی لیٹر فی ایکڑ — پتے پر بھورے دھبے۔<br><b>بکائنی / فٹ روٹ:</b> کاربینڈازیم 400 گرام فی ایکڑ بیج کو لگائیں۔<br><b>تنے کی سنڈی:</b> کارٹیپ ہائیڈروکلورائیڈ 9 کلو گرام دانے دار فی ایکڑ۔<br><b>پتہ لپیٹ سنڈی:</b> لیمبڈا 250 ملی لیٹر۔</div></div>
+<div class="crop-section"><h3>💊 Alliance تجویز</h3><div class="urdu">جھلساؤ کے لیے: Alliance Azoxystrobin 200ml / ایکڑ<br>سنڈی کے لیے: Cartap 9kg / ایکڑ<br>پیداوار کے لیے: SOP + Boron + Amino Acid فولئیر</div></div>
+<div style="text-align:center;margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a onclick="go('home')" class="btn">← Back to Home</a><a href="https://wa.me/923030634055?text=Mujhe Rice ka spray chahiye" class="btn btn-green">Contact on WhatsApp</a></div>
+</div>
+</div>
+<div id="cropMaize" class="page">
+<div class="crop-page">
+<h2>🌽 مکئی - مکمل رہنمائی</h2>
+<p style="text-align:center;color:#64748b;font-size:13px">Maize / Corn Complete Guide</p>
+<div class="crop-section"><h3>📅 کاشت کا وقت</h3><div class="urdu">بہاریہ مکئی: یکم فروری سے 15 مارچ۔ خریف مکئی: 15 جولائی سے 15 اگست۔ ہائیبرڈ اقسام: NK-8441، DK-6714، 30Y87۔ شرح بیج: 10-12 کلو فی ایکڑ۔ فاصلہ: 2.5 فٹ لائن، 9 انچ پودا۔</div></div>
+<div class="crop-section green"><h3>💩 کھاد پلان - سب سے اہم</h3><div class="urdu"><b>بجائی پر:</b> DAP 1.5 بوری + SOP 1 بوری<br><b>پہلا پانی (20 دن):</b> یوریا 1 بوری + زنک 5 کلو + ہیومک ایسڈ 8 لیٹر<br><b>دوسرا پانی (40 دن - گوبھ):</b> یوریا 1.5 بوری + بوران 1 کلو — اس وقت کھاد بہت ضروری ہے، چھلی بڑی بنے گی۔<br><b>فولئیر:</b> NPK 20-20-20 1 کلو + GA3 Tablet</div></div>
+<div class="crop-section orange"><h3>🦠 کیڑے اور جڑی بوٹیاں</h3><div class="urdu"><b>فال آرمی ورم (نیا خطرناک کیڑا):</b> ایما میکٹن 200 ملی + لوفینوران 250 ملی فی ایکڑ — گوبھ میں سپرے۔<br><b>تنے کی سنڈی:</b> کارٹیپ 9 کلو دانے دار یا کلورپائریفاس 800 ملی فلڈ۔<br><b>جڑی بوٹی:</b> ایٹرازین 50% 600 گرام فی ایکڑ بجائی کے فوراً بعد۔</div></div>
+<div class="crop-section"><h3>💊 Alliance تجویز</h3><div class="urdu">فال آرمی ورم کے لیے: Emamectin + Lufenuron Combo — 100% کنٹرول<br>جڑی بوٹی کے لیے: Atrazine 50% WP 600g / ایکڑ<br>چھلی بڑی کرنے کے لیے: Potash + Boron + Amino Acid فولئیر</div></div>
+<div style="text-align:center;margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a onclick="go('home')" class="btn">← Back to Home</a><a href="https://wa.me/923030634055?text=Mujhe Maize ka spray chahiye" class="btn btn-green">Contact on WhatsApp</a></div>
+</div>
+</div>
+<div id="cropVegetables" class="page">
+<div class="crop-page">
+<h2>🥬 سبزیاں - ٹماٹر، مرچ، بھنڈی - مکمل رہنمائی</h2>
+<p style="text-align:center;color:#64748b;font-size:13px">Vegetables Complete Guide</p>
+<div class="crop-section"><h3>📅 کاشت کا وقت</h3><div class="urdu">ٹماٹر: اگست-ستمبر اور فروری-مارچ۔ مرچ: فروری-مارچ اور جولائی۔ بھنڈی: فروری-مارچ اور جون-جولائی۔ سبزیاں سارا سال لگتی ہیں لیکن سردی گرمی کا خیال رکھیں۔ پنیری 25-30 دن کی ہونی چاہیے۔</div></div>
+<div class="crop-section green"><h3>💩 کھاد پلان</h3><div class="urdu"><b>زمین تیاری پر:</b> گوبر 2 ٹرالی + DAP 1 بوری + SOP 1 بوری<br><b>ہر 15 دن بعد:</b> یوریا 25 کلو + پوٹاش 10 کلو فلڈ کریں۔<br><b>فولئیر ہر 10 دن:</b> NPK 20-20-20 500 گرام + امائنو ایسڈ 250 ملی + بوران 200 گرام — پھول زیادہ، پھل زیادہ۔</div></div>
+<div class="crop-section orange"><h3>🦠 بیماریاں اور کیڑے</h3><div class="urdu"><b>سفید مکھی + تیلا + تھریپس:</b> سبزی کا نمبر 1 دشمن — امیڈا کلوپرڈ 100 ملی + بائی فینتھرین 150 ملی ہر ہفتے بدل کر۔<br><b>پھل کی سنڈی (ٹماٹر مرچ):</b> ایما میکٹن 150 ملی + لوفینوران 200 ملی۔<br><b>جھلساؤ (پتوں پر دھبے):</b> مینکوزیب 400 گرام یا کاپر آکسی کلورائیڈ 500 گرام۔</div></div>
+<div class="crop-section"><h3>💊 Alliance کی خاص تجویز سبزی کے لیے</h3><div class="urdu">چوسنے والے کیڑوں کے لیے: Alliance Sucking Pest Combo — 7 دن تک کنٹرول<br>پھل کی سنڈی کے لیے: Emamectin 150ml / ایکڑ<br>پھول گرنے سے بچاؤ کے لیے: Boron + GA3 Tablet + Amino Acid — 100% پھول سے پھل بنے گا<br>پیداوار ڈبل کرنے کے لیے: Potash + NPK ہر 10 دن فولئیر</div></div>
+<div style="text-align:center;margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a onclick="go('home')" class="btn">← Back to Home</a><a href="https://wa.me/923030634055?text=Mujhe Sabzi ka spray chahiye" class="btn btn-green">Contact on WhatsApp</a></div>
+</div>
+</div>
+<div id="products" class="page"><h2 id="ptitle">Our Products</h2><div class="grid" id="pGrid"></div></div>
+<div id="adminLoginPage" class="page">
+<div class="admin-login-card">
+<img src="https://i.postimg.cc/FsPnDzNz/Whats-App-Image-2026-09-28-at-2-14-00-PM-removebg-preview.png">
+<h2 style="font-size:26px;font-weight:800;color:#0f172a">Admin Login Panel</h2>
+<p style="font-size:13px;color:#64748b;margin-top:6px">Alliance Crop Sciences</p>
+<label style="display:block;text-align:left;margin-top:20px;font-size:13px;font-weight:700">Username</label><input id="adminUserInput" class="input" placeholder="Enter Username">
+<label style="display:block;text-align:left;margin-top:12px;font-size:13px;font-weight:700">Password</label><input id="adminPassInput" type="password" class="input" placeholder="Enter Password" onkeyup="if(event.key==='Enter') doAdminLogin()">
+<button class="btn" style="width:100%;margin-top:20px;padding:14px;font-size:15px;background:#0f3d9e" onclick="doAdminLogin()">Login</button>
+<div id="adminLoginMsg" style="display:none;margin-top:12px;padding:10px;border-radius:10px;font-size:13px"></div>
+<p style="font-size:11px;color:#94a3b8;margin-top:12px">Secure access - Alliance Crop Sciences Only</p>
+</div>
+</div>
+<div id="adminPage" class="page"><h2>Admin Panel</h2><p style="font-size:13px;color:#666;margin-top:6px">Welcome Admin</p><div id="adminBox" class="admin" style="display:block"><input type="hidden" id="editIdx" value="-1"><select id="pcat"><option>Fertilizer & Foliar</option><option>Pesticide Products</option><option>Fungicides Products</option><option>Herbicide Products</option><option>Tablets</option></select><input id="pname" placeholder="Product Name"><input id="pimg" placeholder="Image Link"><textarea id="pdet" placeholder="Short Detail"></textarea><textarea id="pfull" placeholder="Full Detail"></textarea><button id="addBtn" class="btn" style="width:100%;margin-top:8px;background:rgba(22,163,74,.9)" onclick="addProduct()">+ Add Product</button><button id="cancelBtn" class="btn" style="width:100%;margin-top:6px;background:rgba(107,114,128,.9);display:none" onclick="cancelEdit()">Cancel Edit</button><div style="margin-top:16px"><h4>Your Products</h4><div id="adminList" style="margin-top:10px"></div></div><hr style="margin:14px 0"><h4>Farmer Info</h4><input id="fname" placeholder="Title"><input id="fimg" placeholder="Image Link"><textarea id="fshort" placeholder="Short"></textarea><textarea id="ffull" placeholder="Full"></textarea><button class="btn" style="width:100%;margin-top:8px;background:rgba(22,163,74,.9)" onclick="addFarmer()">Add Farmer Info</button><hr style="margin:14px 0"><h4>Crops Info</h4><input id="cname" placeholder="Title"><input id="cimg" placeholder="Image Link"><textarea id="cshort" placeholder="Short"></textarea><textarea id="cfull" placeholder="Full"></textarea><button class="btn" style="width:100%;margin-top:8px;background:rgba(22,163,74,.9)" onclick="addCrop()">Add Crop Info</button><hr style="margin:14px 0"><input id="newPass" placeholder="New Password"><button class="btn" style="width:100%;margin-top:6px" onclick="changePass()">Change Password</button><button class="btn" style="width:100%;margin-top:8px;background:#fff;color:red;border:1px solid #fecaca" onclick="logout()">Logout</button></div></div>
+<div id="farmer" class="page"><h2>Farmer Information</h2><div class="grid" id="farmerGrid"></div></div>
+<div id="crops" class="page"><h2>Crops Information</h2><div class="grid" id="cropsGrid"></div></div>
+<div id="contact" class="page">
+<h2 style="text-align:center;font-size:32px">Contact Us</h2>
+<p style="text-align:center;color:#64748b;margin-top:8px">We are here to help farmers - visit us or send message anytime</p>
+<div class="contact-wrap">
+<div>
+<h3>📍 Our Location</h3>
+<p style="margin-top:16px;font-size:14px;line-height:1.7"><b>Office:</b> Alliance Crop Sciences<br>Near Vehari Chowk, Multan, Punjab, Pakistan<br>Bosan Road Link</p>
+<p style="margin-top:16px;font-size:14px">📞 <b>Phone:</b> +92 303 0634055</p>
+<p style="font-size:14px;margin-top:6px">✉️ <b>Email:</b> alliancecrops@gmail.com</p>
+<p style="font-size:14px;margin-top:6px">🕒 <b>Working Hours:</b><br>Mon - Sat: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 5:00 PM<br><span style="color:#16a34a;font-weight:700">Emergency: 24/7 WhatsApp</span></p>
+<p style="font-size:14px;margin-top:10px">🚜 <b>Services:</b><br>• Free Field Visit<br>• Soil Testing Guidance<br>• Crop Consultancy<br>• Same Day Delivery</p>
+<p style="font-size:14px;margin-top:12px">📍 <b>Coverage:</b><br>Multan, Vehari, Khanewal, Lodhran, Muzaffargarh</p>
+<div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="https://wa.me/923030634055" class="btn btn-green">WhatsApp</a>
+<a href="tel:+923030634055" class="btn" style="background:rgba(255,255,255,.7);color:#0f3d9e">📞 Call Now</a></div>
+<div style="margin-top:18px;border-radius:16px;overflow:hidden;border:1px solid #e2e8f0"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3447.0!2d71.5249!3d30.1575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sVehari%20Chowk%20Multan!5e0!3m2!1sen!2s!4v1" width="100%" height="180" style="border:0" loading="lazy"></iframe></div>
+</div>
+<div>
+<h3>Send Message</h3>
+<p style="font-size:12px;color:#64748b;margin-top:4px">We reply within 2 hours</p>
+<input class="input" placeholder="Your Name *"><input class="input" placeholder="Phone Number *"><input class="input" placeholder="Email Address">
+<select class="input"><option>Select Crop</option><option>Cotton</option><option>Wheat</option><option>Rice</option><option>Maize</option><option>Vegetables</option></select>
+<textarea class="input" placeholder="Your Message..." style="height:130px;resize:none"></textarea>
+<button class="btn" style="width:100%;margin-top:16px;padding:13px;background:rgba(15,61,158,.9)">Send Message →</button>
+</div>
+</div>
+</div>
+<div id="about" class="page">
+<h2 style="text-align:center;font-size:32px">About Alliance Crop Sciences</h2>
+<p style="text-align:center;color:#64748b;margin-top:8px;max-width:750px;margin:8px auto 0">Your Trusted Partner in Modern Agriculture - Way to Green Prosperity | Multan, Punjab</p>
+<div style="max-width:1100px;margin:24px auto;display:grid;grid-template-columns:1fr 1fr;gap:22px">
+<div style="background:rgba(255,255,255,.75);padding:26px;border-radius:24px;border:1px solid rgba(255,255,255,.65)"><h3 style="color:#0f3d9e">🌱 Who We Are - Our Story</h3><p style="margin-top:12px;font-size:14px;line-height:1.9;color:#334155">Alliance Crop Sciences was founded in <b>Multan, the heart of South Punjab agriculture</b>, with a simple mission: provide <b>100% genuine, effective and affordable</b> crop protection and nutrition to every farmer.<br><br>Starting from a small shop near <b>Vehari Chowk, Bosan Road Link, Multan</b>, today we serve <b>500+ farmers, dealers and agri-shops</b> across Multan, Vehari, Khanewal, Lodhran, Muzaffargarh and Bahawalpur.<br><br>We understand local crops - <b>Cotton, Wheat, Rice, Maize, Vegetables and Mango</b> - because we work in fields, not just shops.</p></div>
+<div style="background:rgba(242,247,255,.75);padding:26px;border-radius:24px;border:1px solid rgba(255,255,255,.65)"><h3 style="color:#0f3d9e">🎯 Our Mission, Vision & Values</h3><p style="margin-top:12px;font-size:14px;line-height:1.9;color:#334155"><b>🎯 Mission:</b> Empower every Pakistani farmer with modern, safe, effective solutions that increase yield by 20-30% and reduce crop loss.<br><br><b>👁️ Vision:</b> To become Pakistan's most trusted crop sciences brand by 2030 - known for honesty, quality and farmer prosperity.<br><br><b>💎 Core Values:</b><br>✅ <b>Quality First</b> - Only company packing, no copy<br>✅ <b>Honesty</b> - Correct dosage, fair price<br>✅ <b>Farmer First</b> - Field visit free<br>✅ <b>Innovation</b> - Latest molecules & foliar tech</p></div>
+</div>
+<div style="max-width:1100px;margin:22px auto;background:rgba(255,255,255,.75);padding:26px;border-radius:24px;border:1px solid rgba(255,255,255,.65)"><h3 style="color:#0f3d9e;text-align:center">🌾 Complete Crop Solutions - What We Provide</h3><p style="text-align:center;font-size:13px;color:#64748b;margin-top:6px">One stop solution for all crop protection & nutrition needs</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:18px"><div style="background:rgba(240,253,244,.9);padding:16px;border-radius:14px;border-left:4px solid #16a34a"><b>🪲 Pesticide Products</b><br><span style="font-size:13px;color:#475569">Bifenthrin 10% EC, Imidacloprid, Thiamethoxam, Emamectin - for Whitefly, Jassid, Thrips, Bollworms, Armyworm.</span></div><div style="background:rgba(254,252,232,.9);padding:16px;border-radius:14px;border-left:4px solid #f59e0b"><b>🍄 Fungicides Products</b><br><span style="font-size:13px;color:#475569">Azoxystrobin, Mancozeb, Tebuconazole, Copper Oxy - for Blight, Rust, Powdery Mildew, Downy Mildew.</span></div><div style="background:rgba(240,247,255,.9);padding:16px;border-radius:14px;border-left:4px solid #0f3d9e"><b>🌿 Herbicide Products</b><br><span style="font-size:13px;color:#475569">Atrazine, Glyphosate, Pendimethalin, Halosulfuron - selective & non-selective for wheat, rice, maize, cotton.</span></div><div style="background:rgba(253,242,248,.9);padding:16px;border-radius:14px;border-left:4px solid #ec4899"><b>💊 Fertilizer, Foliar & Tablets</b><br><span style="font-size:13px;color:#475569">DAP, Urea, SOP, Potash, Amino Acid, NPK 20-20-20, Boron, Zinc, Gibberellic Acid GA3 Tablets for growth & flowering.</span></div></div></div>
+</div>
+<div id="detail"><button class="btn" onclick="document.getElementById('detail').style.display='none'">← Back</button><div id="detailBox" style="max-width:700px;margin:20px auto;background:rgba(255,255,255,.78);border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.65)"></div></div>
+<footer>
+<div class="footer-one-line">
+<span>© 2026 <b>Alliance Crop Sciences</b></span>
+<span>•</span>
+<span>📞 +92 303 0634055</span>
+<span>•</span>
+<span>✉️ alliancecrops@gmail.com</span>
+<span>•</span>
+<span>📍 Vehari Chowk, Multan</span>
+<span>•</span>
+<span>Way to Green Prosperity 🌱 | 100% Genuine</span>
+</div>
+</footer>
+<script>
+let products=JSON.parse(localStorage.getItem('ac_products')||'[]');
+if(products.length==0){products=[{Cat:"Pesticide Products",Name:"Bifenthrin 10% EC",Img:"https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400",Det:"For sucking pests - Whitefly, Jassid",Full:"Dose: 250ml/acre"},{Cat:"Fungicides Products",Name:"Azoxystrobin",Img:"https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=400",Det:"Broad spectrum fungicide",Full:"200ml/acre"}, {Cat:"Herbicide Products",Name:"Atrazine 50% WP",Img:"https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400",Det:"Weed control for maize",Full:"Selective herbicide"}];localStorage.setItem('ac_products',JSON.stringify(products));}
+let farmers=JSON.parse(localStorage.getItem('ac_farmers')||'[]');
+if(farmers.length==0){farmers=[{Title:"Wheat Farming Tips",Img:"https://images.unsplash.com/photo-1501430654243-c934cec2e1c0?w=400",Det:"Best practices",Full:"Soil preparation"}];localStorage.setItem('ac_farmers',JSON.stringify(farmers));}
+let cropsData=JSON.parse(localStorage.getItem('ac_crops')||'[]');
+if(cropsData.length==0){cropsData=[{Title:"Rice Crop Info",Img:"https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=400",Det:"Rice cultivation",Full:"Rice needs water"}];localStorage.setItem('ac_crops',JSON.stringify(cropsData));}
+function go(id,el){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+if(el){document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));el.classList.add('active');}
+document.getElementById('mainNav').classList.remove('show');
+document.getElementById('drop').classList.remove('show');
+window.scrollTo(0,0);
+document.querySelector('footer').style.display = (id==='login')? 'none' : 'block';
+}
+function toggleDrop(e){e.stopPropagation();document.getElementById('drop').classList.toggle('show');}
+function filterProd(cat){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('products').classList.add('active');if(cat=='All'){renderProd(products);ptitle.innerText='Our Products';}else{renderProd(products.filter(p=>p.Cat==cat));ptitle.innerText=cat;}document.getElementById('drop').classList.remove('show');window.scrollTo(0,0);document.querySelector('footer').style.display='block';}
+function searchProd(q){if(!q ||!q.trim()){renderProd(products);document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('products').classList.add('active');ptitle.innerText='Our Products';return;}let s=q.toLowerCase().trim();let filtered=products.filter(p=>p.Name.toLowerCase().includes(s)||p.Cat.toLowerCase().includes(s)||p.Det.toLowerCase().includes(s));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('products').classList.add('active');ptitle.innerText='Search: "'+q+'" ('+filtered.length+')';renderProd(filtered);document.querySelector('footer').style.display='block';}
+function renderProd(list){let g=document.getElementById('pGrid'),hg=document.getElementById('homeGrid');g.innerHTML=''; if(hg) hg.innerHTML='';list.forEach(p=>{let idx=products.indexOf(p);let html=`<div class="card" onclick="openDetail(${idx},'product')"><img src="${p.Img}"><div class="card-body"><span class="tag">${p.Cat}</span><h4 style="margin:6px 0;text-align:center">${p.Name}</h4><p style="font-size:12px;color:#666;text-align:center">${p.Det}</p></div></div>`;g.innerHTML+=html;if(hg && hg.children.length<6) hg.innerHTML+=html;});renderFarmer();renderCrop();renderAdminList();}
+function renderFarmer(){let g=document.getElementById('farmerGrid');g.innerHTML='';farmers.forEach((f,i)=>{g.innerHTML+=`<div class="card" onclick="openDetail(${i},'farmer')"><img src="${f.Img}"><div class="card-body"><span class="tag">Farmer Info</span><h4 style="text-align:center">${f.Title}</h4><p style="font-size:12px;text-align:center">${f.Det}</p></div></div>`;});}
+function renderCrop(){let g=document.getElementById('cropsGrid');g.innerHTML='';cropsData.forEach((c,i)=>{g.innerHTML+=`<div class="card" onclick="openDetail(${i},'crop')"><img src="${c.Img}"><div class="card-body"><span class="tag">Crops Info</span><h4 style="text-align:center">${c.Title}</h4><p style="font-size:12px;text-align:center">${c.Det}</p></div></div>`;});}
+function renderAdminList(){let div=document.getElementById('adminList');if(localStorage.getItem('isAdmin')!=='true'){div.innerHTML='<p style="font-size:12px">Login first</p>';return;}let h='';products.forEach((p,i)=>{h+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px;border:1px solid rgba(255,255,255,.5);border-radius:12px;margin-bottom:6px;background:rgba(249,250,251,.7)"><div><b style="font-size:13px">${p.Name}</b><br><span style="font-size:11px;color:#666">${p.Cat}</span></div><div style="display:flex;gap:6px"><button class="btn btn-yellow" style="padding:6px 10px;font-size:11px" onclick="editProduct(${i})">Edit</button><button class="btn btn-red" style="padding:6px 10px;font-size:11px" onclick="deleteProduct(${i})">Delete</button></div></div>`;});div.innerHTML=h||'<p style="font-size:12px">No products</p>';}
+function openDetail(i,type){let box=document.getElementById('detailBox'),data;if(type=='product'){data=products[i];box.innerHTML=`<img src="${data.Img}" style="width:100%;height:320px;object-fit:contain;background:#fff;padding:10px"><div style="padding:16px;text-align:center"><span class="tag">${data.Cat}</span><h2 style="margin:8px 0;text-align:center">${data.Name}</h2><p style="text-align:center">${data.Det}</p><div style="margin-top:10px;background:rgba(240,253,244,.7);padding:12px;border-radius:14px;border-left:4px solid #16a34a;text-align:center"><b>Details:</b><br>${data.Full}</div><br><a href="https://wa.me/923030634055?text=I want ${data.Name}" class="btn btn-green">WhatsApp Order</a></div>`;}else if(type=='farmer'){data=farmers[i];box.innerHTML=`<img src="${data.Img}" style="width:100%;height:280px;object-fit:cover"><div style="padding:16px;text-align:center"><h2 style="text-align:center">${data.Title}</h2><p style="text-align:center">${data.Det}</p><div style="margin-top:10px;background:rgba(240,247,255,.7);padding:12px;border-radius:14px;border-left:4px solid #0f3d9e;text-align:center"><b>Full Info:</b><br>${data.Full}</div></div>`;}else{data=cropsData[i];box.innerHTML=`<img src="${data.Img}" style="width:100%;height:280px;object-fit:cover"><div style="padding:16px;text-align:center"><h2 style="text-align:center">${data.Title}</h2><p style="text-align:center">${data.Det}</p><div style="margin-top:10px;background:rgba(254,252,232,.7);padding:12px;border-radius:14px;border-left:4px solid #f59e0b;text-align:center"><b>Full Info:</b><br>${data.Full}</div></div>`;}document.getElementById('detail').style.display='block';}
+function doLogin(){let e=lemail.value,p=lphone.value,s=lshop.value,a=laddr.value;if(!e||!p||!s||!a){alert('Please fill all fields');return;}loginShow.style.display='block';loginShow.innerHTML=`<b>✓ Submitted</b><br>📧 ${e}<br>📞 ${p}<br>🏪 ${s}<br>📍 ${a}`;}
+function addProduct(){let cat=pcat.value,name=pname.value.trim(),img=pimg.value.trim(),det=pdet.value.trim(),full=pfull.value.trim();let idx=document.getElementById('editIdx').value;if(!name){alert('Enter Product Name');return;}if(idx!='-1'){products[idx]={Cat:cat,Name:name,Img:img||products[idx].Img,Det:det,Full:full};editIdx.value='-1';addBtn.innerText='+ Add Product';cancelBtn.style.display='none';alert('Product Updated!');}else{products.push({Cat:cat,Name:name,Img:img||'https://via.placeholder.com/400',Det:det,Full:full});alert('Product Added!');}localStorage.setItem('ac_products',JSON.stringify(products));pname.value='';pimg.value='';pdet.value='';pfull.value='';renderProd(products);}
+function editProduct(i){let p=products[i];pcat.value=p.Cat;pname.value=p.Name;pimg.value=p.Img;pdet.value=p.Det;pfull.value=p.Full;editIdx.value=i;addBtn.innerText='✓ Update Product';cancelBtn.style.display='block';go('adminPage');}
+function cancelEdit(){editIdx.value='-1';addBtn.innerText='+ Add Product';cancelBtn.style.display='none';pname.value='';pimg.value='';pdet.value='';pfull.value='';}
+function deleteProduct(i){if(!confirm('Delete "'+products[i].Name+'"?'))return;products.splice(i,1);localStorage.setItem('ac_products',JSON.stringify(products));renderProd(products);alert('Deleted!');}
+function addFarmer(){let t=fname.value,img=fimg.value,det=fshort.value,full=ffull.value;if(!t)return alert('Enter title');farmers.push({Title:t,Img:img||'https://via.placeholder.com/400',Det:det,Full:full});localStorage.setItem('ac_farmers',JSON.stringify(farmers));renderFarmer();alert('Farmer Added');}
+function addCrop(){let t=cname.value,img=cimg.value,det=cshort.value,full=cfull.value;if(!t)return alert('Enter title');cropsData.push({Title:t,Img:img||'https://via.placeholder.com/400',Det:det,Full:full});localStorage.setItem('ac_crops',JSON.stringify(cropsData));renderCrop();alert('Crop Added');}
+if(!localStorage.getItem('adminPass')) localStorage.setItem('adminPass','shahid@U10');
+if(!localStorage.getItem('adminUser')) localStorage.setItem('adminUser','shahid');
+function goAdminLoginPage(){localStorage.removeItem('isAdmin');adminBtnHeader.innerText='Admin';document.getElementById('adminUserInput').value='';document.getElementById('adminPassInput').value='';document.getElementById('adminLoginMsg').style.display='none';go('adminLoginPage');}
+function doAdminLogin(){let u=document.getElementById('adminUserInput').value.trim();let p=document.getElementById('adminPassInput').value.trim();let savedUser=localStorage.getItem('adminUser')||'shahid';let savedPass=localStorage.getItem('adminPass')||'shahid@U10';let msg=document.getElementById('adminLoginMsg');if(!u||!p){msg.style.display='block';msg.style.background='rgba(254,226,226,.9)';msg.style.border='1px solid #fecaca';msg.style.color='#dc2626';msg.innerText='Please enter username and password';return;}if(u===savedUser && p===savedPass){localStorage.setItem('isAdmin','true');adminBtnHeader.innerText='Admin ✓';msg.style.display='block';msg.style.background='rgba(220,252,231,.9)';msg.style.border='1px solid #bbf7d0';msg.style.color='#166534';msg.innerText='✓ Login Successful! Opening Admin Panel...';setTimeout(()=>{go('adminPage');renderAdminList();},700);}else{msg.style.display='block';msg.style.background='rgba(254,226,226,.9)';msg.style.border='1px solid #fecaca';msg.style.color='#dc2626';msg.innerText='Wrong username or password!';}}
+function changePass(){let np=newPass.value;if(!np)return alert('Enter new');localStorage.setItem('adminPass',np);alert('Password Changed to: '+np);newPass.value='';}
+function logout(){localStorage.removeItem('isAdmin');adminBtnHeader.innerText='Admin';go('home');alert('Logged out');}
+localStorage.removeItem('isAdmin');adminBtnHeader.innerText='Admin';
+document.addEventListener('click',e=>{if(!e.target.closest('.dropdown')&&!e.target.closest('.nav-search')) drop.classList.remove('show');});
+renderProd(products);
+</script>
+</body>
+</html>
