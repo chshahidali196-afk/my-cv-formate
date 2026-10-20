@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>HASAAN - INVISIBLE RESIZE SIMPLE</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root{--primary:#1e3a8a;--primary2:#2563eb;--light1:#bfdbfe;--light2:#dbeafe;--light3:#eff6ff;--border:#93c5fd}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{margin:0;padding:0;background:#f1f5f9;width:100%;min-height:100vh;font-family:Arial,Helvetica,sans-serif}
+body{display:flex;flex-direction:column;align-items:center;overflow:auto;padding:8px 0}
+.top-bar{width:210mm;background:#fff;padding:8px;border-radius:10px;border:1px solid var(--light1);margin-bottom:8px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.btn{padding:7px 12px;border-radius:20px;border:1px solid var(--light1);font-weight:800;cursor:pointer;font-size:9.5px;background:#fff;color:var(--primary)}
+.btn-d{background:var(--primary);color:#fff}
+.btn-color{background:#f59e0b;color:#fff;border-color:#f59e0b}
+.print-wrapper{width:210mm;height:297mm;background:#fff;padding:4mm 5mm;box-sizing:border-box;display:flex;justify-content:center;align-items:flex-start;box-shadow:0 8px 20px rgba(0,0,0,0.08);border-radius:10px;border:1px solid #dbeafe}
+.a4{width:200mm;height:284mm;background:#fff;border:2px solid #000;box-sizing:border-box;display:flex;overflow:hidden}
+.left{width:31%;height:284mm;padding:5px;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+.divider{width:2px;background:#000;height:284mm;flex-shrink:0}
+.right{width:calc(69% - 2px);height:284mm;padding:6px;background:#fff;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.profile-wrap{display:flex;justify-content:center;margin:4px 0 6px}
+.profile-circle{width:90px;height:90px;border-radius:50%;border:1px solid #000;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--light3)}
+.profile-circle img{width:100%;height:100%;object-fit:cover;display:none}
+#picInput{display:none}
+.sec-title{font-weight:900;font-size:12.5px;text-transform:uppercase;padding:4px 10px;margin:5px 0 4px;color:var(--primary);background:var(--light2);border:1px solid var(--border);border-radius:20px;display:flex;justify-content:space-between;align-items:center}
+.r-head{display:flex;justify-content:space-between;align-items:center;margin:4px 0 3px}
+.r-title{font-weight:900;font-size:14px;text-transform:uppercase;color:var(--primary)}
+.r-icon{width:15px;height:15px;border-radius:50%;background:var(--primary);color:#fff;font-size:8px;display:flex;align-items:center;justify-content:center;font-weight:900}
+.c-box,.p-box{border:1px solid var(--border);border-radius:20px;padding:0 7px;margin:3px 0;background:#fff;display:flex;align-items:center;gap:4px;height:27px;font-size:10px}
+.c-box b,.p-label{font-weight:900;color:var(--primary);font-size:10.5px}
+.c-box span,.p-val{font-weight:700;color:#000;outline:none;flex:1}
+.skills-box,.lang-box,.summary-box,.exp-card,.edu-card,.points{border:1px solid var(--light1);border-radius:8px;padding:6px;background:#f8fafc;margin-bottom:5px}
+.skills-box li,.lang-box li,.points li{list-style:none;font-size:11.5px;font-weight:600;line-height:1.8;display:flex;justify-content:space-between;align-items:center;padding:1px 0}
+.skills-box li::before,.points li::before{content:"▸";color:var(--primary2);font-weight:900;margin-right:5px}
+.lang-box li::before{content:"•";color:var(--primary2);margin-right:5px}
+.txt{flex:1;outline:none}
+.name-wrap{text-align:center;margin:6px 0}
+.name{font-size:26px;font-weight:900;color:var(--primary);outline:none;border-bottom:2px solid var(--primary);padding-bottom:2px;display:inline-block;min-width:180px}
+.summary-text{font-size:11.5px;font-weight:600;line-height:1.5;text-align:justify;outline:none;min-height:25px}
+.exp-top{display:flex;gap:6px;justify-content:space-between;align-items:center;margin-bottom:4px}
+.exp-t{font-size:13px;font-weight:900;background:var(--light2);border:1px solid var(--border);border-radius:20px;padding:2px 10px;color:var(--primary);outline:none}
+.exp-y{font-size:9.5px;font-weight:900;background:var(--primary);color:#fff;border-radius:20px;padding:3px 8px;outline:none}
+.exp-c{font-size:10.5px;font-weight:700;background:var(--light3);border:1px solid var(--light1);border-radius:20px;padding:2px 8px;margin-bottom:4px;outline:none}
+.add{font-size:7px;font-weight:900;padding:2px 6px;border-radius:10px;border:1px solid var(--primary);background:#fff;color:var(--primary);cursor:pointer}
+.del{font-size:7px;font-weight:900;padding:1px 5px;border-radius:10px;border:1px solid #fecaca;background:#fee2e2;color:#dc2626;cursor:pointer;margin-left:4px}
+.color-box{display:none;width:210mm;background:#fff;padding:6px;border-radius:10px;border:1px solid var(--light1);margin-bottom:6px;gap:6px;flex-wrap:wrap;justify-content:center}
+.color-box.show{display:flex}
+.color-box label{font-size:8px;font-weight:800;display:flex;align-items:center;gap:3px}
+.color-box input[type="color"]{width:22px;height:18px;border:none;border-radius:4px}
+
+/* INVISIBLE RESIZE HANDLES - NO BUTTON VISIBLE */
+.resize-box{position:relative}
+.resize-box::after{content:"";position:absolute;inset:0;pointer-events:none}
+.h{position:absolute;z-index:5;opacity:0; /* invisible */ }
+.h-n{top:-3px;left:0;width:100%;height:8px;cursor:n-resize}
+.h-s{bottom:-3px;left:0;width:100%;height:8px;cursor:s-resize}
+.h-e{top:0;right:-3px;width:8px;height:100%;cursor:e-resize}
+.h-w{top:0;left:-3px;width:8px;height:100%;cursor:w-resize}
+.h-ne{top:-4px;right:-4px;width:12px;height:12px;cursor:ne-resize}
+.h-nw{top:-4px;left:-4px;width:12px;height:12px;cursor:nw-resize}
+.h-se{bottom:-4px;right:-4px;width:12px;height:12px;cursor:se-resize}
+.h-sw{bottom:-4px;left:-4px;width:12px;height:12px;cursor:sw-resize}
+
+@media print{
+.top-bar,.color-box,.add,.del,.h{display:none!important}
+@page{margin:3mm}
+.print-wrapper{box-shadow:none!important;border:none!important;padding:4mm 5mm!important;width:210mm!important;height:297mm!important}
+.a4{border:2px solid #000!important;width:200mm!important;height:284mm!important}
+}
+</style></head><body>
+
+<div class="top-bar" id="topBar">
+<button class="btn btn-d" onclick="downloadWithBoxes()">📥 With Boxes</button>
+<button class="btn" onclick="downloadWithoutBoxes()">📥 Without Boxes</button>
+<button class="btn" onclick="printWithBoxes()">🖨️ Print With</button>
+<button class="btn" onclick="printWithoutBoxes()">🖨️ Without</button>
+<button class="btn btn-color" onclick="toggleColors()">🎨 Colors</button>
+<button class="btn" onclick="saveData()">💾 Save</button>
+</div>
+
+<div class="color-box" id="colorBox">
+<label>Primary <input type="color" id="cPrimary" value="#1e3a8a" oninput="updateColors()"></label>
+<label>Light <input type="color" id="cLight1" value="#bfdbfe" oninput="updateColors()"></label>
+<label>BG <input type="color" id="cLight3" value="#eff6ff" oninput="updateColors()"></label>
+<label>Border <input type="color" id="cBorder" value="#93c5fd" oninput="updateColors()"></label>
+<button class="btn" onclick="toggleColors()">Close</button>
+</div>
+
+<div class="print-wrapper" id="printWrapper">
+<div class="a4" id="cv">
+<div class="left">
+<div class="profile-wrap"><div class="profile-circle" onclick="document.getElementById('picInput').click()"><img id="preview"><div id="phText" style="font-size:6.5px;font-weight:800;text-align:center;color:var(--primary)">CLICK<br>PHOTO</div></div><input type="file" id="picInput" accept="image/*"></div>
+<div class="sec-title"><span>CONTACT</span></div>
+<div class="c-box resize-box"><b>Phone:</b> <span contenteditable="true">0300XXXXXXX</span></div>
+<div class="c-box resize-box"><b>Email:</b> <span contenteditable="true">yourname@gmail.com</span></div>
+<div class="c-box resize-box"><b>Address:</b> <span contenteditable="true">Your Address</span></div>
+<div class="sec-title" style="margin-top:8px"><span>PERSONAL INFO</span></div>
+<div class="p-box resize-box"><span class="p-label">DOB:</span> <span class="p-val" contenteditable="true">DD/MM/YYYY</span></div>
+<div class="p-box resize-box"><span class="p-label">City:</span> <span class="p-val" contenteditable="true">Your City</span></div>
+<div class="p-box resize-box"><span class="p-label">Nationality:</span> <span class="p-val" contenteditable="true">Pakistan</span></div>
+<div class="p-box resize-box"><span class="p-label">Marital:</span> <span class="p-val" contenteditable="true">Single</span></div>
+<div class="sec-title"><span>SKILLS</span> <button class="add" onclick="addSkill()">+ ADD</button></div>
+<div class="skills-box resize-box" id="skillsBox">
+<li><span class="txt" contenteditable="true">Your Skill 1</span><button class="del" onclick="this.parentElement.remove()">X</button></li>
+<li><span class="txt" contenteditable="true">Your Skill 2</span><button class="del" onclick="this.parentElement.remove()">X</button></li>
+<li><span class="txt" contenteditable="true">Your Skill 3</span><button class="del" onclick="this.parentElement.remove()">X</button></li>
+</div>
+<div class="sec-title"><span>LANGUAGES</span> <button class="add" onclick="addLang()">+ ADD</button></div>
+<div class="lang-box resize-box" id="langBox">
+<li><span class="txt" contenteditable="true">Urdu</span><button class="del" onclick="this.parentElement.remove()">X</button></li>
+<li><span class="txt" contenteditable="true">English</span><button class="del" onclick="this.parentElement.remove()">X</button></li>
+</div>
+</div>
+<div class="divider"></div>
+<div class="right">
+<div>
+<div class="name-wrap"><div class="name resize-box" contenteditable="true">YOUR FULL NAME</div></div>
+<div class="r-head"><div style="display:flex;gap:4px;align-items:center"><div class="r-icon">◉</div><div class="r-title">PROFILE SUMMARY</div></div></div>
+<div class="summary-box resize-box"><div class="summary-text" contenteditable="true">Yahan apna summary likho... border ke paas cursor le jao to resize hoga, button nahi dikhega!</div></div>
+<div class="r-head"><div style="display:flex;gap:4px;align-items:center"><div class="r-icon">◫</div><div class="r-title">WORK EXPERIENCE</div></div> <button class="add" onclick="addExp()">+ ADD EXP</button></div>
+<div id="expContainer">
+<div class="exp-card resize-box"><div class="exp-top"><div class="exp-t resize-box" contenteditable="true">Your Job Title</div><div class="exp-y resize-box" contenteditable="true">2020 - Present</div></div><div class="exp-c resize-box" contenteditable="true">Company Name | City</div><div class="points resize-box" id="p1"><li><span class="txt" contenteditable="true">Your work point 1 - border pe cursor lao, kheecho!</span><button class="del" onclick="this.parentElement.remove()">X</button></li><li><span class="txt" contenteditable="true">Your work point 2</span><button class="del" onclick="this.parentElement.remove()">X</button></li></div><div style="text-align:right"><button class="add" onclick="addPoint('p1')">+ ADD POINT</button></div></div>
+</div>
+</div>
+<div id="eduBox"><div class="r-head"><div style="display:flex;gap:4px;align-items:center"><div class="r-icon">✦</div><div class="r-title">EDUCATION</div></div> <button class="add" onclick="addEdu()">+ ADD EDU</button></div>
+<div class="edu-card resize-box"><div class="exp-top"><div class="exp-t resize-box" contenteditable="true">Your Degree 1</div><div class="exp-y resize-box" contenteditable="true">2020</div><button class="del" onclick="this.closest('.edu-card').remove()">X</button></div><div class="exp-c resize-box" contenteditable="true">College Name | City</div></div>
+<div class="edu-card resize-box"><div class="exp-top"><div class="exp-t resize-box" contenteditable="true">Your Degree 2</div><div class="exp-y resize-box" contenteditable="true">2016</div><button class="del" onclick="this.closest('.edu-card').remove()">X</button></div><div class="exp-c resize-box" contenteditable="true">School Name | City</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+// INVISIBLE 4-SIDE RESIZE - NO VISIBLE BUTTON
+function initInvisibleResize(){
+  document.querySelectorAll('.resize-box').forEach(box=>{
+    if(box.querySelector('.h')) return;
+    ['n','s','e','w','ne','nw','se','sw'].forEach(d=>{
+      const h=document.createElement('div');
+      h.className='h h-'+d;
+      h.dataset.dir=d;
+      box.appendChild(h);
+    });
+  });
+  let cur=null, dir='', sx, sy, sw, sh;
+  document.addEventListener('mousedown', e=>{
+    if(!e.target.classList.contains('h')) return;
+    e.preventDefault();
+    cur=e.target.parentElement;
+    dir=e.target.dataset.dir;
+    sx=e.clientX; sy=e.clientY;
+    const r=cur.getBoundingClientRect();
+    sw=r.width; sh=r.height;
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', up);
+  });
+  function move(e){
+    if(!cur) return;
+    const dx=e.clientX-sx, dy=e.clientY-sy;
+    if(dir.includes('e')) cur.style.width=Math.max(40, sw+dx)+'px';
+    if(dir.includes('s')) cur.style.height=Math.max(20, sh+dy)+'px';
+    if(dir.includes('w')) cur.style.width=Math.max(40, sw-dx)+'px';
+    if(dir.includes('n')) cur.style.height=Math.max(20, sh-dy)+'px';
+  }
+  function up(){
+    document.removeEventListener('mousemove', move);
+    document.removeEventListener('mouseup', up);
+    cur=null;
+  }
+  // touch
+  document.addEventListener('touchstart', e=>{
+    if(!e.target.classList.contains('h')) return;
+    const t=e.touches[0];
+    cur=e.target.parentElement; dir=e.target.dataset.dir;
+    sx=t.clientX; sy=t.clientY;
+    const r=cur.getBoundingClientRect(); sw=r.width; sh=r.height;
+    document.addEventListener('touchmove', tmove, {passive:false});
+    document.addEventListener('touchend', tup);
+  }, {passive:false});
+  function tmove(e){
+    e.preventDefault();
+    const t=e.touches[0]; const dx=t.clientX-sx, dy=t.clientY-sy;
+    if(dir.includes('e')) cur.style.width=Math.max(40, sw+dx)+'px';
+    if(dir.includes('s')) cur.style.height=Math.max(20, sh+dy)+'px';
+  }
+  function tup(){
+    document.removeEventListener('touchmove', tmove);
+    document.removeEventListener('touchend', tup);
+    cur=null;
+  }
+}
+function toggleColors(){document.getElementById('colorBox').classList.toggle('show')}
+function updateColors(){
+ const p=document.getElementById('cPrimary').value;
+ const l1=document.getElementById('cLight1').value;
+ const l3=document.getElementById('cLight3').value;
+ const b=document.getElementById('cBorder').value;
+ document.documentElement.style.setProperty('--primary',p);
+ document.documentElement.style.setProperty('--light1',l1);
+ document.documentElement.style.setProperty('--light3',l3);
+ document.documentElement.style.setProperty('--border',b);
+}
+function addSkill(){const box=document.getElementById('skillsBox');const li=document.createElement('li');li.innerHTML='<span class="txt" contenteditable="true">New Skill</span><button class="del" onclick="this.parentElement.remove()">X</button>';box.appendChild(li);}
+function addLang(){const box=document.getElementById('langBox');const li=document.createElement('li');li.innerHTML='<span class="txt" contenteditable="true">New Language</span><button class="del" onclick="this.parentElement.remove()">X</button>';box.appendChild(li);}
+function addPoint(id){const box=document.getElementById(id);const li=document.createElement('li');li.innerHTML='<span class="txt" contenteditable="true">New point</span><button class="del" onclick="this.parentElement.remove()">X</button>';box.appendChild(li);}
+function addEdu(){const box=document.getElementById('eduBox');const card=document.createElement('div');card.className='edu-card resize-box';card.innerHTML='<div class="exp-top"><div class="exp-t resize-box" contenteditable="true">New Degree</div><div class="exp-y resize-box" contenteditable="true">Year</div><button class="del" onclick="this.closest(\'.edu-card\').remove()">X</button></div><div class="exp-c resize-box" contenteditable="true">College Name</div>';box.appendChild(card);initInvisibleResize();}
+function addExp(){
+ const c=document.getElementById('expContainer'); const id='p'+Date.now();
+ const card=document.createElement('div');card.className='exp-card resize-box';
+ card.innerHTML='<div class="exp-top"><div class="exp-t resize-box" contenteditable="true">New Job Title</div><div class="exp-y resize-box" contenteditable="true">Year</div><button class="del" onclick="this.closest(\'.exp-card\').remove()">X DEL</button></div><div class="exp-c resize-box" contenteditable="true">Company Name</div><div class="points resize-box" id="'+id+'"><li><span class="txt" contenteditable="true">New point</span><button class="del" onclick="this.parentElement.remove()">X</button></li></div><div style="text-align:right"><button class="add" onclick="addPoint(\''+id+'\')">+ ADD POINT</button></div>';
+ c.appendChild(card);initInvisibleResize();
+}
+const picInput=document.getElementById('picInput'),preview=document.getElementById('preview'),phText=document.getElementById('phText');
+picInput.addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{preview.src=ev.target.result;preview.style.display='block';phText.style.display='none'};r.readAsDataURL(f)});
+function saveData(){localStorage.setItem('simpleCV2',document.getElementById('cv').innerHTML);alert('Save ho gaya!')}
+window.addEventListener('load',()=>{initInvisibleResize();const d=localStorage.getItem('simpleCV2');if(d){document.getElementById('cv').innerHTML=d;setTimeout(initInvisibleResize,200)}});
+function downloadWithBoxes(){
+ document.getElementById('topBar').style.display='none';document.getElementById('colorBox').style.display='none';
+ html2pdf().set({margin:0,filename:'CV_Simple_With_Boxes.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:3,useCORS:true,backgroundColor:'#fff',scrollY:0},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('printWrapper')).save().then(()=>{document.getElementById('topBar').style.display='flex'});
+}
+function downloadWithoutBoxes(){
+ const s=document.createElement('style');s.id='tmp';s.innerHTML='.sec-title,.c-box,.p-box,.skills-box,.lang-box,.summary-box,.exp-card,.exp-t,.exp-y,.exp-c,.points,.edu-card,.r-icon{border:none!important;background:transparent!important} .a4{border:2px solid #000!important} .divider{background:#000!important}';
+ document.head.appendChild(s);
+ document.getElementById('topBar').style.display='none';document.getElementById('colorBox').style.display='none';
+ html2pdf().set({margin:0,filename:'CV_Simple_Without_Boxes.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:3,useCORS:true,backgroundColor:'#fff',scrollY:0},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('printWrapper')).save().then(()=>{document.head.removeChild(s);document.getElementById('topBar').style.display='flex'});
+}
+function printWithBoxes(){document.getElementById('topBar').style.display='none';document.getElementById('colorBox').style.display='none';window.print();setTimeout(()=>{document.getElementById('topBar').style.display='flex'},600);}
+function printWithoutBoxes(){
+ const s=document.createElement('style');s.id='printNo';s.innerHTML='@media print{ .sec-title,.c-box,.p-box,.skills-box,.lang-box,.summary-box,.exp-card,.exp-y,.exp-c,.points,.edu-card,.r-icon{border:none!important;background:transparent!important} .exp-t{border:none!important;background:transparent!important} .a4{border:2px solid #000!important} .divider{background:#000!important} }';
+ document.head.appendChild(s);
+ document.getElementById('topBar').style.display='none';document.getElementById('colorBox').style.display='none';window.print();setTimeout(()=>{document.head.removeChild(s);document.getElementById('topBar').style.display='flex'},800);
+}
+</script></body></html>
